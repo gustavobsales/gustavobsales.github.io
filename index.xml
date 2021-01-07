@@ -149,14 +149,26 @@ Quam iugulum regia simulacra, plus meruit humo pecorumque haesit, ab discedunt d
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://gustavobsales.github.io/Capacitacoes/R/Aula2/</guid>
-      <description>Expressões RegularesResumo:Coringa: .
+      <description>Expressões Regulares #  Resumo: #  Coringa: .
 Âncoras: ^ $
-Especiais: Grupos: [abc] [^abc]
+Especiais: \d \s \b \w
+Grupos: [abc] [^abc]
 Alternativas: (ba|ca)
 Quantificadores: ?, +, *, {n,m}, {n,m}? (lazy matching)
 Agrupamentos: ( )
 Backreference: (..)\\1
-Puxando o Tidyverselibrary(tidyverse)## Warning: package &amp;#39;tidyverse&amp;#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.</description>
+Puxando o Tidyverse #  library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.</description>
+    </item>
+    
+    <item>
+      <title>Regressão Linear no R</title>
+      <link>https://gustavobsales.github.io/Capacitacoes/Econometria/Econometria/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gustavobsales.github.io/Capacitacoes/Econometria/Econometria/</guid>
+      <description>knitr::opts_chunk$set(message = FALSE) Pacotes utilizados para a regressão linear #  library(skimr) Ferramenta para análise exploratória dos dados.
+library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## Warning: package &#39;tibble&#39; was built under R version 4.0.3## Warning: package &#39;readr&#39; was built under R version 4.0.3Ferramenta completa para análise de dados.
+library(tidymodels) ## Warning: package &#39;tidymodels&#39; was built under R version 4.0.3## Warning: package &#39;broom&#39; was built under R version 4.</description>
     </item>
     
   </channel>

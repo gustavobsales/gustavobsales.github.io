@@ -5,23 +5,25 @@
   <meta name="generator" content="Hugo 0.80.0" />
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Expressões RegularesResumo:Coringa: .
+<meta name="description" content="Expressões Regulares #  Resumo: #  Coringa: .
 Âncoras: ^ $
-Especiais: Grupos: [abc] [^abc]
+Especiais: \d \s \b \w
+Grupos: [abc] [^abc]
 Alternativas: (ba|ca)
 Quantificadores: ?, &#43;, *, {n,m}, {n,m}? (lazy matching)
 Agrupamentos: ( )
 Backreference: (..)\\1
-Puxando o Tidyverselibrary(tidyverse)## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.">
+Puxando o Tidyverse #  library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.">
 <meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Aula2" />
-<meta property="og:description" content="Expressões RegularesResumo:Coringa: .
+<meta property="og:description" content="Expressões Regulares #  Resumo: #  Coringa: .
 Âncoras: ^ $
-Especiais: Grupos: [abc] [^abc]
+Especiais: \d \s \b \w
+Grupos: [abc] [^abc]
 Alternativas: (ba|ca)
 Quantificadores: ?, &#43;, *, {n,m}, {n,m}? (lazy matching)
 Agrupamentos: ( )
 Backreference: (..)\\1
-Puxando o Tidyverselibrary(tidyverse)## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1." />
+Puxando o Tidyverse #  library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://gustavobsales.github.io/Capacitacoes/R/Aula2/" />
 
@@ -29,7 +31,7 @@ Backreference: (..)\\1
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
-<script defer src="/en.search.min.47a3565e75be08822b47f748b3813c41b1d7c1f0497ef009063998c043f76f1a.js" integrity="sha256-R6NWXnW&#43;CIIrR/dIs4E8QbHXwfBJfvAJBjmYwEP3bxo="></script>
+<script defer src="/en.search.min.ee6b7d80a649a3e2e269b26a0dc10c67d6dd52d8b6a588c22026288f3e57fdfa.js" integrity="sha256-7mt9gKZJo&#43;LiabJqDcEMZ9bdUti2pYjCICYojz5X/fo="></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -73,13 +75,18 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/docs/example/table-of-contents/">R</a>
 <ul>
 <li><a href="/Capacitacoes/R/Aula1/">ggplot</a></li>
-<li><a href="/docs/example/table-of-contents/with-toc/">dplyr</a></li>
+<li><a href="/Capacitacoes/R/Aula2/"class=active>dplyr</a></li>
 </ul>
 </li>
 <li><a href="/docs/example/table-of-contents/">Python</a>
 <ul>
 <li><a href="/docs/example/table-of-contents/with-toc/">Listas</a></li>
 <li><a href="/docs/example/table-of-contents/with-toc/">Funções</a></li>
+</ul>
+</li>
+<li><a href="/docs/example/table-of-contents/">Econometria</a>
+<ul>
+<li><a href="/Capacitacoes/Econometria/Econometria/">Regressão Linear</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +170,29 @@ https://github.com/alex-shpak/hugo-book
   
   <aside class="hidden clearfix">
     
-  
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#expressões-regulares">Expressões Regulares</a>
+      <ul>
+        <li><a href="#resumo">Resumo:</a></li>
+        <li><a href="#puxando-o-tidyverse">Puxando o Tidyverse</a></li>
+        <li><a href="#ideias-básicas-relacionadas-a-strings-cadeias-de-caracteres">Ideias básicas relacionadas a &ldquo;strings&rdquo; (cadeias de caracteres)</a></li>
+        <li><a href="#tamanhos-de-strings">Tamanhos de strings</a></li>
+        <li><a href="#combinando-strings">Combinando strings</a></li>
+        <li><a href="#substrings">Substrings</a></li>
+      </ul>
+    </li>
+    <li><a href="#padrões-via-expressões-regulares">Padrões via Expressões Regulares</a>
+      <ul>
+        <li><a href="#coringa-">Coringa: .</a></li>
+        <li><a href="#âncoras--para-começo-e--para-o-final-da-string">Âncoras: ^ para começo e $ para o final da string</a></li>
+        <li><a href="#especiais">Especiais:</a></li>
+        <li><a href="#ferramenta-substituindo-padrões">Ferramenta: Substituindo padrões</a></li>
+        <li><a href="#ferramenta-quebrando-strings">Ferramenta: quebrando strings</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
 
   </aside>
@@ -173,130 +202,134 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown">
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<link href="/rmarkdown-libs/str_view/str_view.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/str_view-binding/str_view.js"></script>
-
-
-<div id="expressões-regulares" class="section level1">
-<h1>Expressões Regulares</h1>
-<div id="resumo" class="section level2">
-<h2>Resumo:</h2>
+  <article class="markdown"><h1 id="expressões-regulares">
+  Expressões Regulares
+  <a class="anchor" href="#express%c3%b5es-regulares">#</a>
+</h1>
+<h2 id="resumo">
+  Resumo:
+  <a class="anchor" href="#resumo">#</a>
+</h2>
 <p>Coringa: .</p>
 <p>Âncoras: ^ $</p>
-<p>Especiais: </p>
+<p>Especiais: \d \s \b \w</p>
 <p>Grupos: [abc] [^abc]</p>
 <p>Alternativas: (ba|ca)</p>
 <p>Quantificadores: ?, +, *, {n,m}, {n,m}? (lazy matching)</p>
 <p>Agrupamentos: ( )</p>
-<p>Backreference: (..)\\1</p>
-</div>
-<div id="puxando-o-tidyverse" class="section level2">
-<h2>Puxando o Tidyverse</h2>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+<p>Backreference:  (..)\\1</p>
+<h2 id="puxando-o-tidyverse">
+  Puxando o Tidyverse
+  <a class="anchor" href="#puxando-o-tidyverse">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(tidyverse)
+</code></pre></div><pre><code>## Warning: package 'tidyverse' was built under R version 4.0.3
+</code></pre><pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+</code></pre><pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
 ## v tibble  3.0.4     v dplyr   1.0.2
 ## v tidyr   1.1.2     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.0</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## v readr   1.4.0     v forcats 0.5.0
+</code></pre><pre><code>## Warning: package 'tibble' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'readr' was built under R version 4.0.3
+</code></pre><pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(stringi)</code></pre>
-<pre><code>## Warning: package &#39;stringi&#39; was built under R version 4.0.3</code></pre>
-</div>
-<div id="ideias-básicas-relacionadas-a-strings-cadeias-de-caracteres" class="section level2">
-<h2>Ideias básicas relacionadas a “strings” (cadeias de caracteres)</h2>
-<p>Preferencialmente usaremos aspas ("" ao invés do apóstrofo ’’)</p>
-<pre class="r"><code>string1 &lt;- &quot;Uma string é uma cadeia de caracteres&quot;
-cat(string1)</code></pre>
-<pre><code>## Uma string é uma cadeia de caracteres</code></pre>
-<pre class="r"><code>string2 &lt;- &#39;Exemplo de &quot;aspas&quot; dentro de uma string&#39;
-cat(string2)</code></pre>
-<pre><code>## Exemplo de &quot;aspas&quot; dentro de uma string</code></pre>
-<pre class="r"><code>string3 &lt;- &quot;Exemplo de aspas \&quot;dentro\&quot; de uma string&quot;
-cat(string3)</code></pre>
-<pre><code>## Exemplo de aspas &quot;dentro&quot; de uma string</code></pre>
-<pre class="r"><code>x &lt;- &quot;\u00b5&quot; # UNICODE
-cat(x)</code></pre>
-<pre><code>## µ</code></pre>
-</div>
-<div id="tamanhos-de-strings" class="section level2">
-<h2>Tamanhos de strings</h2>
-<pre class="r"><code>x &lt;- c(&quot;a&quot;, &quot;R for Data Science&quot;, NA)
+## x dplyr::lag()    masks stats::lag()
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(stringi)
+</code></pre></div><pre><code>## Warning: package 'stringi' was built under R version 4.0.3
+</code></pre><h2 id="ideias-básicas-relacionadas-a-strings-cadeias-de-caracteres">
+  Ideias básicas relacionadas a &ldquo;strings&rdquo; (cadeias de caracteres)
+  <a class="anchor" href="#ideias-b%c3%a1sicas-relacionadas-a-strings-cadeias-de-caracteres">#</a>
+</h2>
+<p>Preferencialmente usaremos aspas (&quot;&quot; ao invés do apóstrofo &lsquo;')</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">string1 <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;Uma string é uma cadeia de caracteres&#34;</span>
+<span style="color:#a6e22e">cat</span>(string1)
+</code></pre></div><pre><code>## Uma string é uma cadeia de caracteres
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">string2 <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#39;Exemplo de &#34;aspas&#34; dentro de uma string&#39;</span>
+<span style="color:#a6e22e">cat</span>(string2)
+</code></pre></div><pre><code>## Exemplo de &quot;aspas&quot; dentro de uma string
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">string3 <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;Exemplo de aspas \&#34;dentro\&#34; de uma string&#34;</span>
+<span style="color:#a6e22e">cat</span>(string3)
+</code></pre></div><pre><code>## Exemplo de aspas &quot;dentro&quot; de uma string
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;\u00b5&#34;</span> <span style="color:#75715e"># UNICODE</span>
+<span style="color:#a6e22e">cat</span>(x)
+</code></pre></div><pre><code>## µ
+</code></pre><h2 id="tamanhos-de-strings">
+  Tamanhos de strings
+  <a class="anchor" href="#tamanhos-de-strings">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;R for Data Science&#34;</span>, <span style="color:#66d9ef">NA</span>)
 
-str_length(x) # retorna o tamanho de cada string</code></pre>
-<pre><code>## [1]  1 18 NA</code></pre>
-<pre class="r"><code>length(x) # retorna o tamanho do vetor</code></pre>
-<pre><code>## [1] 3</code></pre>
-</div>
-<div id="combinando-strings" class="section level2">
-<h2>Combinando strings</h2>
-<pre class="r"><code>str_c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;) # concatena strings</code></pre>
-<pre><code>## [1] &quot;xyz&quot;</code></pre>
-<pre class="r"><code>str_c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;, sep = &quot; : &quot;)</code></pre>
-<pre><code>## [1] &quot;x : y : z&quot;</code></pre>
-<pre class="r"><code>x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
-y &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-str_c(x, y) # concatena de forma vetorizada</code></pre>
-<pre><code>## [1] &quot;aA&quot; &quot;bB&quot; &quot;cC&quot;</code></pre>
-<pre class="r"><code>str_c(x, y, sep = &quot; - &quot;)</code></pre>
-<pre><code>## [1] &quot;a - A&quot; &quot;b - B&quot; &quot;c - C&quot;</code></pre>
-<pre class="r"><code>str_c(x, y, sep = &quot; - &quot;, collapse = &quot; | &quot;) # junta todos os vetores em uma string</code></pre>
-<pre><code>## [1] &quot;a - A | b - B | c - C&quot;</code></pre>
-<pre class="r"><code>x &lt;- c(&quot;a&quot;, NA, &quot;c&quot;)
-y &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
-str_c(x, y, sep = &quot; - &quot;)</code></pre>
-<pre><code>## [1] &quot;a - A&quot; NA      &quot;c - C&quot;</code></pre>
-<pre class="r"><code>str_c(str_replace_na(x), y, sep = &quot; - &quot;) # substitui o valor NA pela string &quot;NA&quot;</code></pre>
-<pre><code>## [1] &quot;a - A&quot;  &quot;NA - B&quot; &quot;c - C&quot;</code></pre>
-</div>
-<div id="substrings" class="section level2">
-<h2>Substrings</h2>
-<pre class="r"><code>x &lt;- c(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Pear&quot;)
-str_sub(x, 1, 3)</code></pre>
-<pre><code>## [1] &quot;App&quot; &quot;Ban&quot; &quot;Pea&quot;</code></pre>
-<pre class="r"><code>str_sub(x, 1, 3) &lt;- &quot;***&quot; # substitui as primeiras letras
-x</code></pre>
-<pre><code>## [1] &quot;***le&quot;  &quot;***ana&quot; &quot;***r&quot;</code></pre>
-</div>
-</div>
-<div id="padrões-via-expressões-regulares" class="section level1">
-<h1>Padrões via Expressões Regulares</h1>
-<pre class="r"><code>x &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;)
-str_view(x, &quot;an&quot;) # ajuda a estudar as expressões regulares</code></pre>
-<div id="htmlwidget-1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<div id="coringa-." class="section level2">
-<h2>Coringa: .</h2>
+<span style="color:#a6e22e">str_length</span>(x) <span style="color:#75715e"># retorna o tamanho de cada string</span>
+</code></pre></div><pre><code>## [1]  1 18 NA
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">length</span>(x) <span style="color:#75715e"># retorna o tamanho do vetor</span>
+</code></pre></div><pre><code>## [1] 3
+</code></pre><h2 id="combinando-strings">
+  Combinando strings
+  <a class="anchor" href="#combinando-strings">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>) <span style="color:#75715e"># concatena strings</span>
+</code></pre></div><pre><code>## [1] &quot;xyz&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_c</span>(<span style="color:#e6db74">&#34;x&#34;</span>, <span style="color:#e6db74">&#34;y&#34;</span>, <span style="color:#e6db74">&#34;z&#34;</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; : &#34;</span>)
+</code></pre></div><pre><code>## [1] &quot;x : y : z&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>)
+y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>)
+<span style="color:#a6e22e">str_c</span>(x, y) <span style="color:#75715e"># concatena de forma vetorizada</span>
+</code></pre></div><pre><code>## [1] &quot;aA&quot; &quot;bB&quot; &quot;cC&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_c</span>(x, y, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; - &#34;</span>)
+</code></pre></div><pre><code>## [1] &quot;a - A&quot; &quot;b - B&quot; &quot;c - C&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_c</span>(x, y, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; - &#34;</span>, collapse <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; | &#34;</span>) <span style="color:#75715e"># junta todos os vetores em uma string</span>
+</code></pre></div><pre><code>## [1] &quot;a - A | b - B | c - C&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#66d9ef">NA</span>, <span style="color:#e6db74">&#34;c&#34;</span>)
+y <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;A&#34;</span>, <span style="color:#e6db74">&#34;B&#34;</span>, <span style="color:#e6db74">&#34;C&#34;</span>)
+<span style="color:#a6e22e">str_c</span>(x, y, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; - &#34;</span>)
+</code></pre></div><pre><code>## [1] &quot;a - A&quot; NA      &quot;c - C&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_c</span>(<span style="color:#a6e22e">str_replace_na</span>(x), y, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; - &#34;</span>) <span style="color:#75715e"># substitui o valor NA pela string &#34;NA&#34;</span>
+</code></pre></div><pre><code>## [1] &quot;a - A&quot;  &quot;NA - B&quot; &quot;c - C&quot;
+</code></pre><h2 id="substrings">
+  Substrings
+  <a class="anchor" href="#substrings">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Apple&#34;</span>, <span style="color:#e6db74">&#34;Banana&#34;</span>, <span style="color:#e6db74">&#34;Pear&#34;</span>)
+<span style="color:#a6e22e">str_sub</span>(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>)
+</code></pre></div><pre><code>## [1] &quot;App&quot; &quot;Ban&quot; &quot;Pea&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_sub</span>(x, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;***&#34;</span> <span style="color:#75715e"># substitui as primeiras letras</span>
+x
+</code></pre></div><pre><code>## [1] &quot;***le&quot;  &quot;***ana&quot; &quot;***r&quot;
+</code></pre><h1 id="padrões-via-expressões-regulares">
+  Padrões via Expressões Regulares
+  <a class="anchor" href="#padr%c3%b5es-via-express%c3%b5es-regulares">#</a>
+</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>)
+<span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;an&#34;</span>) <span style="color:#75715e"># ajuda a estudar as expressões regulares</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-9f4738cbf22662eefad1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9f4738cbf22662eefad1">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<h2 id="coringa-">
+  Coringa: .
+  <a class="anchor" href="#coringa-">#</a>
+</h2>
 <p>. corresponde a qualquer caractere, com exceção da quebra de linha</p>
-<pre class="r"><code>str_view(x, &quot;.a.&quot;)</code></pre>
-<div id="htmlwidget-2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<p>distinção de coringa e “.” –&gt; \.</p>
-<pre class="r"><code>str_view(c(&quot;.bc&quot;, &quot;a.c&quot;, &quot;ab.&quot;), &quot;\\.&quot;)</code></pre>
-<div id="htmlwidget-3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3">{"x":{"html":"<ul>\n  <li><span class='match'>.<\/span>bc<\/li>\n  <li>a<span class='match'>.<\/span>c<\/li>\n  <li>ab<span class='match'>.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="âncoras-para-começo-e-para-o-final-da-string" class="section level2">
-<h2>Âncoras: ^ para começo e $ para o final da string</h2>
-<pre class="r"><code>str_view(x, &quot;^a&quot;) # indica que o caractere deve estar no começo da string</code></pre>
-<div id="htmlwidget-4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4">{"x":{"html":"<ul>\n  <li><span class='match'>a<\/span>pple<\/li>\n  <li>banana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>str_view(x, &quot;r$&quot;) # indica que o caractere deve estar no final da string</code></pre>
-<div id="htmlwidget-5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>banana<\/li>\n  <li>pea<span class='match'>r<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;.a.&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-612477ce8faf936758b1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-612477ce8faf936758b1">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<p>distinção de coringa e &ldquo;.&rdquo; &ndash;&gt; \.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;.bc&#34;</span>, <span style="color:#e6db74">&#34;a.c&#34;</span>, <span style="color:#e6db74">&#34;ab.&#34;</span>), <span style="color:#e6db74">&#34;\\.&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-397b70b5ea45f59cc6e2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-397b70b5ea45f59cc6e2">{"x":{"html":"<ul>\n  <li><span class='match'>.<\/span>bc<\/li>\n  <li>a<span class='match'>.<\/span>c<\/li>\n  <li>ab<span class='match'>.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<h2 id="âncoras--para-começo-e--para-o-final-da-string">
+  Âncoras: ^ para começo e $ para o final da string
+  <a class="anchor" href="#%c3%a2ncoras--para-come%c3%a7o-e--para-o-final-da-string">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;^a&#34;</span>) <span style="color:#75715e"># indica que o caractere deve estar no começo da string</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-4cdbeb8bfb5f2419c979" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4cdbeb8bfb5f2419c979">{"x":{"html":"<ul>\n  <li><span class='match'>a<\/span>pple<\/li>\n  <li>banana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;r$&#34;</span>) <span style="color:#75715e"># indica que o caractere deve estar no final da string</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-af07b430160a5731ebc7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af07b430160a5731ebc7">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>banana<\/li>\n  <li>pea<span class='match'>r<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>O tidyverse tem uma base com 1000 palavras para aprendizado!</p>
-<pre class="r"><code># stringr::words
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># stringr::words</span>
 
-head(words, 100)</code></pre>
-<pre><code>##   [1] &quot;a&quot;           &quot;able&quot;        &quot;about&quot;       &quot;absolute&quot;    &quot;accept&quot;     
+<span style="color:#a6e22e">head</span>(words, <span style="color:#ae81ff">100</span>)
+</code></pre></div><pre><code>##   [1] &quot;a&quot;           &quot;able&quot;        &quot;about&quot;       &quot;absolute&quot;    &quot;accept&quot;     
 ##   [6] &quot;account&quot;     &quot;achieve&quot;     &quot;across&quot;      &quot;act&quot;         &quot;active&quot;     
 ##  [11] &quot;actual&quot;      &quot;add&quot;         &quot;address&quot;     &quot;admit&quot;       &quot;advertise&quot;  
 ##  [16] &quot;affect&quot;      &quot;afford&quot;      &quot;after&quot;       &quot;afternoon&quot;   &quot;again&quot;      
@@ -315,83 +348,84 @@ head(words, 100)</code></pre>
 ##  [81] &quot;become&quot;      &quot;bed&quot;         &quot;before&quot;      &quot;begin&quot;       &quot;behind&quot;     
 ##  [86] &quot;believe&quot;     &quot;benefit&quot;     &quot;best&quot;        &quot;bet&quot;         &quot;between&quot;    
 ##  [91] &quot;big&quot;         &quot;bill&quot;        &quot;birth&quot;       &quot;bit&quot;         &quot;black&quot;      
-##  [96] &quot;bloke&quot;       &quot;blood&quot;       &quot;blow&quot;        &quot;blue&quot;        &quot;board&quot;</code></pre>
-<pre class="r"><code>str_view(words, &quot;w$&quot;, match = TRUE) # só mostra as palavras com resultado</code></pre>
-<div id="htmlwidget-6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="especiais" class="section level2">
-<h2>Especiais:</h2>
+##  [96] &quot;bloke&quot;       &quot;blood&quot;       &quot;blow&quot;        &quot;blue&quot;        &quot;board&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(words, <span style="color:#e6db74">&#34;w$&#34;</span>, match <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#75715e"># só mostra as palavras com resultado</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-935e5fb615fb8306f569" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-935e5fb615fb8306f569">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<h2 id="especiais">
+  Especiais:
+  <a class="anchor" href="#especiais">#</a>
+</h2>
 <p>Um único dígito = \d</p>
-<p>Um espaço, tab ou “newline” = \s</p>
+<p>Um espaço, tab ou &ldquo;newline&rdquo; = \s</p>
 <p>Final de linha/quebra de linha = \n</p>
 <p>Grupos: [abc] = a, b ou c; [^abc] = qualquer coisa, menos a, b ou c</p>
-<pre class="r"><code># palavras que terminam com &quot;u&quot; ou com &quot;w&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e"># palavras que terminam com &#34;u&#34; ou com &#34;w&#34;</span>
 
-str_view(words, &quot;[uw]$&quot;, match = TRUE)</code></pre>
-<div id="htmlwidget-7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>tho<span class='match'>u<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n  <li>yo<span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<span style="color:#a6e22e">str_view</span>(words, <span style="color:#e6db74">&#34;[uw]$&#34;</span>, match <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-e3dccd247fa83c924401" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e3dccd247fa83c924401">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>tho<span class='match'>u<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n  <li>yo<span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>Alternativas com ( | )</p>
-<pre class="r"><code>x &lt;- c(&quot;amor&quot;, &quot;casa&quot;, &quot;amar&quot;, &quot;ame&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;amor&#34;</span>, <span style="color:#e6db74">&#34;casa&#34;</span>, <span style="color:#e6db74">&#34;amar&#34;</span>, <span style="color:#e6db74">&#34;ame&#34;</span>)
 
-str_view(x, &quot;am(a|o|e)&quot;)</code></pre>
-<div id="htmlwidget-8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8">{"x":{"html":"<ul>\n  <li><span class='match'>amo<\/span>r<\/li>\n  <li>casa<\/li>\n  <li><span class='match'>ama<\/span>r<\/li>\n  <li><span class='match'>ame<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;am(a|o|e)&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-11226286ca6f4013188e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11226286ca6f4013188e">{"x":{"html":"<ul>\n  <li><span class='match'>amo<\/span>r<\/li>\n  <li>casa<\/li>\n  <li><span class='match'>ama<\/span>r<\/li>\n  <li><span class='match'>ame<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>repetição (quantificadores)</p>
 <p>? = 0 ou 1; + = 1 ou mais; * = 0 ou mais</p>
-<pre class="r"><code>x &lt;- c(&quot;XXXXYZ&quot;, &quot;XXYZZ&quot;, &quot;XXXZZZ&quot;, &quot;XXYY&quot;)
-str_view(x, &quot;X+YZ+&quot;)</code></pre>
-<div id="htmlwidget-9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>str_view(x, &quot;X+Y?Z&quot;)</code></pre>
-<div id="htmlwidget-10" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-10">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZ<\/span>Z<\/li>\n  <li><span class='match'>XXXZ<\/span>ZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>str_view(x, &quot;X+Y+Z*&quot;)</code></pre>
-<div id="htmlwidget-11" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-11">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li><span class='match'>XXYY<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;XXXXYZ&#34;</span>, <span style="color:#e6db74">&#34;XXYZZ&#34;</span>, <span style="color:#e6db74">&#34;XXXZZZ&#34;</span>, <span style="color:#e6db74">&#34;XXYY&#34;</span>)
+<span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;X+YZ+&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-b6ebb5773d87a37504e2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b6ebb5773d87a37504e2">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;X+Y?Z&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-e14d5ac034279e4924a2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e14d5ac034279e4924a2">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZ<\/span>Z<\/li>\n  <li><span class='match'>XXXZ<\/span>ZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;X+Y+Z*&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-3b2e8dac2562aa021a15" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3b2e8dac2562aa021a15">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li><span class='match'>XXYY<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>Quantificadores mais precisos:</p>
 <p>{n} = exatamente n</p>
 <p>{n,} = n ou mais</p>
 <p>{,m} = no máximo m</p>
 <p>{n,m} = entre n e m</p>
-<pre class="r"><code>str_view(x, &quot;X{2,3}Y?Z{3}&quot;)</code></pre>
-<div id="htmlwidget-12" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-12">{"x":{"html":"<ul>\n  <li>XXXXYZ<\/li>\n  <li>XXYZZ<\/li>\n  <li><span class='match'>XXXZZZ<\/span><\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(x, <span style="color:#e6db74">&#34;X{2,3}Y?Z{3}&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-064b16892bc218377166" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-064b16892bc218377166">{"x":{"html":"<ul>\n  <li>XXXXYZ<\/li>\n  <li>XXYZZ<\/li>\n  <li><span class='match'>XXXZZZ<\/span><\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>Avançado: lazy matching com {n,m}?</p>
-<pre class="r"><code>str_view(&quot;aaaaa&quot;, &quot;a{2,5}&quot;)</code></pre>
-<div id="htmlwidget-13" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-13">{"x":{"html":"<ul>\n  <li><span class='match'>aaaaa<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>str_view(&quot;aaaaa&quot;, &quot;a{2,5}?&quot;) # parar no menor valor</code></pre>
-<div id="htmlwidget-14" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-14">{"x":{"html":"<ul>\n  <li><span class='match'>aa<\/span>aaa<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(<span style="color:#e6db74">&#34;aaaaa&#34;</span>, <span style="color:#e6db74">&#34;a{2,5}&#34;</span>)
+</code></pre></div><!--html_preserve--><div id="htmlwidget-59c606a6509204d0863f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-59c606a6509204d0863f">{"x":{"html":"<ul>\n  <li><span class='match'>aaaaa<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(<span style="color:#e6db74">&#34;aaaaa&#34;</span>, <span style="color:#e6db74">&#34;a{2,5}?&#34;</span>) <span style="color:#75715e"># parar no menor valor</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-bdb642c2ae404593fb1f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bdb642c2ae404593fb1f">{"x":{"html":"<ul>\n  <li><span class='match'>aa<\/span>aaa<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>Agrupamentos e backreferences</p>
-<pre class="r"><code>head(fruit)</code></pre>
-<pre><code>## [1] &quot;apple&quot;       &quot;apricot&quot;     &quot;avocado&quot;     &quot;banana&quot;      &quot;bell pepper&quot;
-## [6] &quot;bilberry&quot;</code></pre>
-<pre class="r"><code>str_view(fruit, &quot;(..)\\1&quot;, match = TRUE) # dois caracteres quaisquer repetidos duas vezes</code></pre>
-<div id="htmlwidget-15" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-15">{"x":{"html":"<ul>\n  <li>b<span class='match'>anan<\/span>a<\/li>\n  <li><span class='match'>coco<\/span>nut<\/li>\n  <li><span class='match'>cucu<\/span>mber<\/li>\n  <li><span class='match'>juju<\/span>be<\/li>\n  <li><span class='match'>papa<\/span>ya<\/li>\n  <li>s<span class='match'>alal<\/span> berry<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(fruit)
+</code></pre></div><pre><code>## [1] &quot;apple&quot;       &quot;apricot&quot;     &quot;avocado&quot;     &quot;banana&quot;      &quot;bell pepper&quot;
+## [6] &quot;bilberry&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_view</span>(fruit, <span style="color:#e6db74">&#34;(..)\\1&#34;</span>, match <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#75715e"># dois caracteres quaisquer repetidos duas vezes</span>
+</code></pre></div><!--html_preserve--><div id="htmlwidget-57b002df7b2afabbfe78" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-57b002df7b2afabbfe78">{"x":{"html":"<ul>\n  <li>b<span class='match'>anan<\/span>a<\/li>\n  <li><span class='match'>coco<\/span>nut<\/li>\n  <li><span class='match'>cucu<\/span>mber<\/li>\n  <li><span class='match'>juju<\/span>be<\/li>\n  <li><span class='match'>papa<\/span>ya<\/li>\n  <li>s<span class='match'>alal<\/span> berry<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <p>Ferramenta: quais strings casam com o padrão?</p>
-<pre class="r"><code>x &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;)
-str_detect(x, &quot;e&quot;) # retorna fator de valores lógicos indicando se a string contém &quot;e&quot;</code></pre>
-<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
-<pre class="r"><code>str_detect(x, &quot;e$&quot;)</code></pre>
-<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
-<pre class="r"><code>str_detect(x, &quot;(.)\\1&quot;)</code></pre>
-<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
-<pre class="r"><code>sum(str_detect(words, &quot;^y&quot;))</code></pre>
-<pre><code>## [1] 6</code></pre>
-<pre class="r"><code>sum(str_detect(words, &quot;(.)\\1&quot;))</code></pre>
-<pre><code>## [1] 157</code></pre>
-<pre class="r"><code>sum(str_detect(words, &quot;([^aeiou])\\1[aeiou]&quot;))</code></pre>
-<pre><code>## [1] 56</code></pre>
-<p>Extrair as palavras que começam com “e” ou “y” e terminam com “t”</p>
-<pre class="r"><code>str_subset(words, &quot;^[ey].*t$&quot;)</code></pre>
-<pre><code>##  [1] &quot;east&quot;        &quot;eat&quot;         &quot;effect&quot;      &quot;eight&quot;       &quot;elect&quot;      
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>)
+<span style="color:#a6e22e">str_detect</span>(x, <span style="color:#e6db74">&#34;e&#34;</span>) <span style="color:#75715e"># retorna fator de valores lógicos indicando se a string contém &#34;e&#34;</span>
+</code></pre></div><pre><code>## [1]  TRUE FALSE  TRUE
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_detect</span>(x, <span style="color:#e6db74">&#34;e$&#34;</span>)
+</code></pre></div><pre><code>## [1]  TRUE FALSE FALSE
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_detect</span>(x, <span style="color:#e6db74">&#34;(.)\\1&#34;</span>)
+</code></pre></div><pre><code>## [1]  TRUE FALSE FALSE
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">str_detect</span>(words, <span style="color:#e6db74">&#34;^y&#34;</span>))
+</code></pre></div><pre><code>## [1] 6
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">str_detect</span>(words, <span style="color:#e6db74">&#34;(.)\\1&#34;</span>))
+</code></pre></div><pre><code>## [1] 157
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">str_detect</span>(words, <span style="color:#e6db74">&#34;([^aeiou])\\1[aeiou]&#34;</span>))
+</code></pre></div><pre><code>## [1] 56
+</code></pre><p>Extrair as palavras que começam com &ldquo;e&rdquo; ou &ldquo;y&rdquo; e terminam com &ldquo;t&rdquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_subset</span>(words, <span style="color:#e6db74">&#34;^[ey].*t$&#34;</span>)
+</code></pre></div><pre><code>##  [1] &quot;east&quot;        &quot;eat&quot;         &quot;effect&quot;      &quot;eight&quot;       &quot;elect&quot;      
 ##  [6] &quot;environment&quot; &quot;exact&quot;       &quot;except&quot;      &quot;exist&quot;       &quot;expect&quot;     
-## [11] &quot;yet&quot;</code></pre>
-<pre class="r"><code>str_subset(words, &quot;([^aeiou])\\1[aeiou]&quot;)</code></pre>
-<pre><code>##  [1] &quot;accept&quot;      &quot;account&quot;     &quot;affect&quot;      &quot;afford&quot;      &quot;allow&quot;      
+## [11] &quot;yet&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_subset</span>(words, <span style="color:#e6db74">&#34;([^aeiou])\\1[aeiou]&#34;</span>)
+</code></pre></div><pre><code>##  [1] &quot;accept&quot;      &quot;account&quot;     &quot;affect&quot;      &quot;afford&quot;      &quot;allow&quot;      
 ##  [6] &quot;apparent&quot;    &quot;appear&quot;      &quot;appoint&quot;     &quot;arrange&quot;     &quot;associate&quot;  
 ## [11] &quot;assume&quot;      &quot;attend&quot;      &quot;bottom&quot;      &quot;brilliant&quot;   &quot;coffee&quot;     
 ## [16] &quot;colleague&quot;   &quot;collect&quot;     &quot;college&quot;     &quot;comment&quot;     &quot;commit&quot;     
@@ -402,13 +436,13 @@ str_detect(x, &quot;e&quot;) # retorna fator de valores lógicos indicando se a 
 ## [41] &quot;opportunity&quot; &quot;oppose&quot;      &quot;possible&quot;    &quot;pressure&quot;    &quot;programme&quot;  
 ## [46] &quot;recommend&quot;   &quot;succeed&quot;     &quot;sudden&quot;      &quot;suggest&quot;     &quot;summer&quot;     
 ## [51] &quot;support&quot;     &quot;suppose&quot;     &quot;terrible&quot;    &quot;tomorrow&quot;    &quot;traffic&quot;    
-## [56] &quot;village&quot;</code></pre>
-<p>Filter strings</p>
-<pre class="r"><code>tb &lt;- tibble(word = words, pos = seq_along(words))
+## [56] &quot;village&quot;
+</code></pre><p>Filter strings</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tb <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(word <span style="color:#f92672">=</span> words, pos <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq_along</span>(words))
 
-tb %&gt;% 
-  filter(str_detect(word, &quot;^[ey].*t$&quot;))</code></pre>
-<pre><code>## # A tibble: 11 x 2
+tb <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">str_detect</span>(word, <span style="color:#e6db74">&#34;^[ey].*t$&#34;</span>))
+</code></pre></div><pre><code>## # A tibble: 11 x 2
 ##    word          pos
 ##    &lt;chr&gt;       &lt;int&gt;
 ##  1 east          254
@@ -421,14 +455,14 @@ tb %&gt;%
 ##  8 except        286
 ##  9 exist         289
 ## 10 expect        290
-## 11 yet           978</code></pre>
-<p>Número de ocorrências de uma letra</p>
-<pre class="r"><code>str_count(x, &quot;a&quot;)</code></pre>
-<pre><code>## [1] 1 3 1</code></pre>
-<pre class="r"><code>tb %&gt;% 
-  mutate(vowels = str_count(word, &quot;[aeiou]&quot;),
-         consonants = str_count(word, &quot;[^aeiou]&quot;))</code></pre>
-<pre><code>## # A tibble: 980 x 4
+## 11 yet           978
+</code></pre><p>Número de ocorrências de uma letra</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_count</span>(x, <span style="color:#e6db74">&#34;a&#34;</span>)
+</code></pre></div><pre><code>## [1] 1 3 1
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">tb <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(vowels <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_count</span>(word, <span style="color:#e6db74">&#34;[aeiou]&#34;</span>),
+         consonants <span style="color:#f92672">=</span> <span style="color:#a6e22e">str_count</span>(word, <span style="color:#e6db74">&#34;[^aeiou]&#34;</span>))
+</code></pre></div><pre><code>## # A tibble: 980 x 4
 ##    word       pos vowels consonants
 ##    &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
 ##  1 a            1      1          0
@@ -441,30 +475,30 @@ tb %&gt;%
 ##  8 across       8      2          4
 ##  9 act          9      1          2
 ## 10 active      10      3          3
-## # ... with 970 more rows</code></pre>
-<p>Ferramenta: como extrair os casamentos em cada string?</p>
-<pre class="r"><code>head(sentences)</code></pre>
-<pre><code>## [1] &quot;The birch canoe slid on the smooth planks.&quot; 
+## # ... with 970 more rows
+</code></pre><p>Ferramenta: como extrair os casamentos em cada string?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">head</span>(sentences)
+</code></pre></div><pre><code>## [1] &quot;The birch canoe slid on the smooth planks.&quot; 
 ## [2] &quot;Glue the sheet to the dark blue background.&quot;
-## [3] &quot;It&#39;s easy to tell the depth of a well.&quot;     
+## [3] &quot;It's easy to tell the depth of a well.&quot;     
 ## [4] &quot;These days a chicken leg is a rare dish.&quot;   
 ## [5] &quot;Rice is often served in round bowls.&quot;       
-## [6] &quot;The juice of lemons makes fine punch.&quot;</code></pre>
-<pre class="r"><code>has_my_colors &lt;- str_subset(sentences, &quot; (red|green|blue) &quot;)
-head(has_my_colors)</code></pre>
-<pre><code>## [1] &quot;Glue the sheet to the dark blue background.&quot;   
+## [6] &quot;The juice of lemons makes fine punch.&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">has_my_colors <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">str_subset</span>(sentences, <span style="color:#e6db74">&#34; (red|green|blue) &#34;</span>)
+<span style="color:#a6e22e">head</span>(has_my_colors)
+</code></pre></div><pre><code>## [1] &quot;Glue the sheet to the dark blue background.&quot;   
 ## [2] &quot;Two blue fish swam in the tank.&quot;               
 ## [3] &quot;A wisp of cloud hung in the blue air.&quot;         
 ## [4] &quot;The spot on the blotter was made by green ink.&quot;
 ## [5] &quot;The sofa cushion is red and of light weight.&quot;  
-## [6] &quot;A blue crane is a tall wading bird.&quot;</code></pre>
-<pre class="r"><code>matches &lt;- str_extract(has_my_colors, &quot; (red|green|blue) &quot;) %&gt;% 
-  str_trim()
-head(matches)</code></pre>
-<pre><code>## [1] &quot;blue&quot;  &quot;blue&quot;  &quot;blue&quot;  &quot;green&quot; &quot;red&quot;   &quot;blue&quot;</code></pre>
-<p>A primeira palavra de cada sentença</p>
-<pre class="r"><code>str_extract(sentences, &quot;^[^ ]+&quot;)</code></pre>
-<pre><code>##   [1] &quot;The&quot;        &quot;Glue&quot;       &quot;It&#39;s&quot;       &quot;These&quot;      &quot;Rice&quot;      
+## [6] &quot;A blue crane is a tall wading bird.&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">matches <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">str_extract</span>(has_my_colors, <span style="color:#e6db74">&#34; (red|green|blue) &#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">str_trim</span>()
+<span style="color:#a6e22e">head</span>(matches)
+</code></pre></div><pre><code>## [1] &quot;blue&quot;  &quot;blue&quot;  &quot;blue&quot;  &quot;green&quot; &quot;red&quot;   &quot;blue&quot;
+</code></pre><p>A primeira palavra de cada sentença</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_extract</span>(sentences, <span style="color:#e6db74">&#34;^[^ ]+&#34;</span>)
+</code></pre></div><pre><code>##   [1] &quot;The&quot;        &quot;Glue&quot;       &quot;It's&quot;       &quot;These&quot;      &quot;Rice&quot;      
 ##   [6] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Four&quot;       &quot;Large&quot;     
 ##  [11] &quot;The&quot;        &quot;A&quot;          &quot;The&quot;        &quot;Kick&quot;       &quot;Help&quot;      
 ##  [16] &quot;A&quot;          &quot;Smoky&quot;      &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
@@ -525,7 +559,7 @@ head(matches)</code></pre>
 ## [291] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Watch&quot;      &quot;The&quot;       
 ## [296] &quot;The&quot;        &quot;Write&quot;      &quot;His&quot;        &quot;The&quot;        &quot;Tin&quot;       
 ## [301] &quot;Slide&quot;      &quot;The&quot;        &quot;The&quot;        &quot;Pink&quot;       &quot;She&quot;       
-## [306] &quot;The&quot;        &quot;It&quot;         &quot;Let&#39;s&quot;      &quot;The&quot;        &quot;The&quot;       
+## [306] &quot;The&quot;        &quot;It&quot;         &quot;Let's&quot;      &quot;The&quot;        &quot;The&quot;       
 ## [311] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Paper&quot;      &quot;The&quot;       
 ## [316] &quot;The&quot;        &quot;Screw&quot;      &quot;Time&quot;       &quot;The&quot;        &quot;Men&quot;       
 ## [321] &quot;Fill&quot;       &quot;He&quot;         &quot;We&quot;         &quot;Pack&quot;       &quot;The&quot;       
@@ -542,7 +576,7 @@ head(matches)</code></pre>
 ## [376] &quot;He&quot;         &quot;Go&quot;         &quot;A&quot;          &quot;Soap&quot;       &quot;That&quot;      
 ## [381] &quot;He&quot;         &quot;A&quot;          &quot;Grape&quot;      &quot;Roads&quot;      &quot;Fake&quot;      
 ## [386] &quot;The&quot;        &quot;Smoke&quot;      &quot;Serve&quot;      &quot;Much&quot;       &quot;The&quot;       
-## [391] &quot;Heave&quot;      &quot;A&quot;          &quot;It&#39;s&quot;       &quot;His&quot;        &quot;The&quot;       
+## [391] &quot;Heave&quot;      &quot;A&quot;          &quot;It's&quot;       &quot;His&quot;        &quot;The&quot;       
 ## [396] &quot;The&quot;        &quot;It&quot;         &quot;Beef&quot;       &quot;Raise&quot;      &quot;The&quot;       
 ## [401] &quot;A&quot;          &quot;Jerk&quot;       &quot;No&quot;         &quot;We&quot;         &quot;The&quot;       
 ## [406] &quot;The&quot;        &quot;Three&quot;      &quot;The&quot;        &quot;No&quot;         &quot;Grace&quot;     
@@ -607,14 +641,14 @@ head(matches)</code></pre>
 ## [701] &quot;Open&quot;       &quot;Fish&quot;       &quot;Dip&quot;        &quot;Will&quot;       &quot;The&quot;       
 ## [706] &quot;The&quot;        &quot;The&quot;        &quot;He&quot;         &quot;Leave&quot;      &quot;The&quot;       
 ## [711] &quot;A&quot;          &quot;The&quot;        &quot;She&quot;        &quot;A&quot;          &quot;Small&quot;     
-## [716] &quot;The&quot;        &quot;The&quot;        &quot;A&quot;          &quot;She&quot;        &quot;When&quot;</code></pre>
-<p>Artigo definido “the” ou indefinido “a” seguido de uma palavra</p>
-<pre class="r"><code>str_extract(sentences, &quot;(( the | a )[^ .,]+)&quot;)</code></pre>
-<pre><code>##   [1] &quot; the smooth&quot;    &quot; the sheet&quot;     &quot; the depth&quot;     &quot; a chicken&quot;    
+## [716] &quot;The&quot;        &quot;The&quot;        &quot;A&quot;          &quot;She&quot;        &quot;When&quot;
+</code></pre><p>Artigo definido &ldquo;the&rdquo; ou indefinido &ldquo;a&rdquo; seguido de uma palavra</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_extract</span>(sentences, <span style="color:#e6db74">&#34;(( the | a )[^ .,]+)&#34;</span>)
+</code></pre></div><pre><code>##   [1] &quot; the smooth&quot;    &quot; the sheet&quot;     &quot; the depth&quot;     &quot; a chicken&quot;    
 ##   [5] NA               NA               &quot; the parked&quot;    NA              
 ##   [9] NA               NA               &quot; the sun&quot;       NA              
 ##  [13] &quot; the huge&quot;      &quot; the ball&quot;      &quot; the woman&quot;     &quot; the evening&quot;  
-##  [17] NA               &quot; the man&#39;s&quot;     &quot; the sea&quot;       &quot; the booth&quot;    
+##  [17] NA               &quot; the man's&quot;     &quot; the sea&quot;       &quot; the booth&quot;    
 ##  [21] &quot; a hole&quot;        &quot; the bent&quot;      &quot; the pants&quot;     NA              
 ##  [25] &quot; the view&quot;      &quot; the tank&quot;      NA               &quot; the tall&quot;     
 ##  [29] &quot; the same&quot;      NA               &quot; the load&quot;      &quot; the winding&quot;  
@@ -654,7 +688,7 @@ head(matches)</code></pre>
 ## [165] &quot; the prize&quot;     NA               &quot; a dull&quot;        &quot; the skill&quot;    
 ## [169] NA               &quot; the hot&quot;       &quot; the broken&quot;    &quot; the small&quot;    
 ## [173] &quot; a sound&quot;       NA               &quot; the stone&quot;     &quot; the best&quot;     
-## [177] NA               NA               &quot; the ship&quot;      &quot; the store&#39;s&quot;  
+## [177] NA               NA               &quot; the ship&quot;      &quot; the store's&quot;  
 ## [181] NA               NA               NA               &quot; the players&quot;  
 ## [185] NA               &quot; the column&quot;    &quot; a good&quot;        &quot; the flood&quot;    
 ## [189] &quot; a head&quot;        NA               &quot; a fig&quot;         &quot; a fire&quot;       
@@ -685,13 +719,13 @@ head(matches)</code></pre>
 ## [289] &quot; the crackers&quot;  NA               &quot; the high&quot;      &quot; a pierced&quot;    
 ## [293] NA               &quot; the log&quot;       &quot; the stalk&quot;     NA              
 ## [297] NA               NA               &quot; a brew&quot;        NA              
-## [301] &quot; the box&quot;       &quot; the window&quot;    &quot; the workmen&#39;s&quot; &quot; the breeze&quot;   
+## [301] &quot; the box&quot;       &quot; the window&quot;    &quot; the workmen's&quot; &quot; the breeze&quot;   
 ## [305] &quot; a swan&quot;        &quot; the tire&quot;      &quot; the old&quot;       &quot; the last&quot;     
 ## [309] NA               NA               NA               NA              
 ## [313] &quot; a person&quot;      NA               &quot; the sleeping&quot;  &quot; the fire&quot;     
 ## [317] &quot; the round&quot;     NA               NA               NA              
 ## [321] &quot; the ink&quot;       &quot; a big&quot;         NA               &quot; the records&quot;  
-## [325] &quot; the snow&quot;      &quot; the sun&#39;s&quot;     NA               &quot; the wall&quot;     
+## [325] &quot; the snow&quot;      &quot; the sun's&quot;     NA               &quot; the wall&quot;     
 ## [329] NA               &quot; the cool&quot;      NA               NA              
 ## [333] NA               &quot; the dog&quot;       &quot; a book&quot;        &quot; the fine&quot;     
 ## [337] &quot; the group&quot;     &quot; the central&quot;   &quot; the rough&quot;     NA              
@@ -699,7 +733,7 @@ head(matches)</code></pre>
 ## [345] NA               NA               NA               &quot; the day&quot;      
 ## [349] &quot; the strip&quot;     NA               &quot; the stew&quot;      NA              
 ## [353] &quot; the woods&quot;     &quot; the road&quot;      &quot; the clear&quot;     NA              
-## [357] &quot; a king&#39;s&quot;      NA               NA               &quot; a good&quot;       
+## [357] &quot; a king's&quot;      NA               NA               &quot; a good&quot;       
 ## [361] &quot; the white&quot;     &quot; the stream&quot;    &quot; the lead&quot;      &quot; the lock&quot;     
 ## [365] &quot; the council&quot;   NA               NA               &quot; the red&quot;      
 ## [369] &quot; the ledge&quot;     &quot; the sheep&quot;     &quot; a lot&quot;         &quot; the spot&quot;     
@@ -738,7 +772,7 @@ head(matches)</code></pre>
 ## [501] &quot; the dust&quot;      NA               &quot; the stone&quot;     NA              
 ## [505] &quot; the weather&quot;   NA               NA               &quot; a source&quot;     
 ## [509] NA               &quot; the writer&quot;    NA               NA              
-## [513] &quot; a queen&#39;s&quot;     &quot; the round&quot;     NA               NA              
+## [513] &quot; a queen's&quot;     &quot; the round&quot;     NA               NA              
 ## [517] &quot; a wild&quot;        NA               &quot; a white&quot;       &quot; the hot&quot;      
 ## [521] &quot; the pedal&quot;     NA               &quot; the landing&quot;   &quot; the debt&quot;     
 ## [525] &quot; the pearl&quot;     NA               &quot; the far&quot;       NA              
@@ -789,30 +823,30 @@ head(matches)</code></pre>
 ## [705] &quot; the ground&quot;    &quot; the show&quot;      &quot; the throne&quot;    &quot; the boy&quot;      
 ## [709] NA               NA               NA               &quot; a year&quot;       
 ## [713] &quot; a cat&quot;         &quot; the sandy&quot;     NA               NA              
-## [717] NA               &quot; the barn&quot;      NA               &quot; the bell&quot;</code></pre>
-</div>
-<div id="ferramenta-substituindo-padrões" class="section level2">
-<h2>Ferramenta: Substituindo padrões</h2>
+## [717] NA               &quot; the barn&quot;      NA               &quot; the bell&quot;
+</code></pre><h2 id="ferramenta-substituindo-padrões">
+  Ferramenta: Substituindo padrões
+  <a class="anchor" href="#ferramenta-substituindo-padr%c3%b5es">#</a>
+</h2>
 <p>Substituir vogais por *</p>
-<pre class="r"><code>phrase &lt;- sentences[3]
-str_replace(phrase, &quot;[aeiouAEIOU]&quot;, &quot;*&quot;) # troca a primeira ocorrência</code></pre>
-<pre><code>## [1] &quot;*t&#39;s easy to tell the depth of a well.&quot;</code></pre>
-<pre class="r"><code>str_replace_all(phrase, &quot;[aeiouAEIOU]&quot;, &quot;*&quot;) # troca todas as ocorrências</code></pre>
-<pre><code>## [1] &quot;*t&#39;s **sy t* t*ll th* d*pth *f * w*ll.&quot;</code></pre>
-</div>
-<div id="ferramenta-quebrando-strings" class="section level2">
-<h2>Ferramenta: quebrando strings</h2>
-<pre class="r"><code>str_split(phrase, &quot; &quot;) # retorna uma lista</code></pre>
-<pre><code>## [[1]]
-## [1] &quot;It&#39;s&quot;  &quot;easy&quot;  &quot;to&quot;    &quot;tell&quot;  &quot;the&quot;   &quot;depth&quot; &quot;of&quot;    &quot;a&quot;     &quot;well.&quot;</code></pre>
-<p>Outras funções interessantes:</p>
-<pre class="r"><code>str_to_upper(&quot;Maçã&quot;, locale = &quot;pt&quot;) # locale: pt de português</code></pre>
-<pre><code>## [1] &quot;MAÇÃ&quot;</code></pre>
-<pre class="r"><code>stringi::stri_trans_general(&quot;é uma maçã&quot;, &quot;Latin-ASCII&quot;) # tranasformar formato de string de um encoder para outro, no caso, retirou ou acentos da frase</code></pre>
-<pre><code>## [1] &quot;e uma maca&quot;</code></pre>
-</div>
-</div>
-</article>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">phrase <span style="color:#f92672">&lt;-</span> sentences[3]
+<span style="color:#a6e22e">str_replace</span>(phrase, <span style="color:#e6db74">&#34;[aeiouAEIOU]&#34;</span>, <span style="color:#e6db74">&#34;*&#34;</span>) <span style="color:#75715e"># troca a primeira ocorrência</span>
+</code></pre></div><pre><code>## [1] &quot;*t's easy to tell the depth of a well.&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_replace_all</span>(phrase, <span style="color:#e6db74">&#34;[aeiouAEIOU]&#34;</span>, <span style="color:#e6db74">&#34;*&#34;</span>) <span style="color:#75715e"># troca todas as ocorrências</span>
+</code></pre></div><pre><code>## [1] &quot;*t's **sy t* t*ll th* d*pth *f * w*ll.&quot;
+</code></pre><h2 id="ferramenta-quebrando-strings">
+  Ferramenta: quebrando strings
+  <a class="anchor" href="#ferramenta-quebrando-strings">#</a>
+</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_split</span>(phrase, <span style="color:#e6db74">&#34; &#34;</span>) <span style="color:#75715e"># retorna uma lista</span>
+</code></pre></div><pre><code>## [[1]]
+## [1] &quot;It's&quot;  &quot;easy&quot;  &quot;to&quot;    &quot;tell&quot;  &quot;the&quot;   &quot;depth&quot; &quot;of&quot;    &quot;a&quot;     &quot;well.&quot;
+</code></pre><p>Outras funções interessantes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">str_to_upper</span>(<span style="color:#e6db74">&#34;Maçã&#34;</span>, locale <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pt&#34;</span>) <span style="color:#75715e"># locale: pt de português</span>
+</code></pre></div><pre><code>## [1] &quot;MAÇÃ&quot;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">stringi<span style="color:#f92672">::</span><span style="color:#a6e22e">stri_trans_general</span>(<span style="color:#e6db74">&#34;é uma maçã&#34;</span>, <span style="color:#e6db74">&#34;Latin-ASCII&#34;</span>) <span style="color:#75715e"># tranasformar formato de string de um encoder para outro, no caso, retirou ou acentos da frase</span>
+</code></pre></div><pre><code>## [1] &quot;e uma maca&quot;
+</code></pre></article>
  
       
 
@@ -844,7 +878,29 @@ str_replace(phrase, &quot;[aeiouAEIOU]&quot;, &quot;*&quot;) # troca a primeira 
     
     <aside class="book-toc">
       
-  
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#expressões-regulares">Expressões Regulares</a>
+      <ul>
+        <li><a href="#resumo">Resumo:</a></li>
+        <li><a href="#puxando-o-tidyverse">Puxando o Tidyverse</a></li>
+        <li><a href="#ideias-básicas-relacionadas-a-strings-cadeias-de-caracteres">Ideias básicas relacionadas a &ldquo;strings&rdquo; (cadeias de caracteres)</a></li>
+        <li><a href="#tamanhos-de-strings">Tamanhos de strings</a></li>
+        <li><a href="#combinando-strings">Combinando strings</a></li>
+        <li><a href="#substrings">Substrings</a></li>
+      </ul>
+    </li>
+    <li><a href="#padrões-via-expressões-regulares">Padrões via Expressões Regulares</a>
+      <ul>
+        <li><a href="#coringa-">Coringa: .</a></li>
+        <li><a href="#âncoras--para-começo-e--para-o-final-da-string">Âncoras: ^ para começo e $ para o final da string</a></li>
+        <li><a href="#especiais">Especiais:</a></li>
+        <li><a href="#ferramenta-substituindo-padrões">Ferramenta: Substituindo padrões</a></li>
+        <li><a href="#ferramenta-quebrando-strings">Ferramenta: quebrando strings</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
  
     </aside>

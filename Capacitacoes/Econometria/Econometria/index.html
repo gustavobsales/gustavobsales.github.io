@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta name="generator" content="Hugo 0.80.0" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="knitr::opts_chunk$set(message = FALSE) Pacotes utilizados para a regressão linear #  library(skimr) Ferramenta para análise exploratória dos dados.
+library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## Warning: package &#39;tibble&#39; was built under R version 4.0.3## Warning: package &#39;readr&#39; was built under R version 4.0.3Ferramenta completa para análise de dados.
+library(tidymodels) ## Warning: package &#39;tidymodels&#39; was built under R version 4.0.3## Warning: package &#39;broom&#39; was built under R version 4.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Regressão Linear no R" />
+<meta property="og:description" content="knitr::opts_chunk$set(message = FALSE) Pacotes utilizados para a regressão linear #  library(skimr) Ferramenta para análise exploratória dos dados.
+library(tidyverse) ## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## Warning: package &#39;tibble&#39; was built under R version 4.0.3## Warning: package &#39;readr&#39; was built under R version 4.0.3Ferramenta completa para análise de dados.
+library(tidymodels) ## Warning: package &#39;tidymodels&#39; was built under R version 4.0.3## Warning: package &#39;broom&#39; was built under R version 4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gustavobsales.github.io/Capacitacoes/Econometria/Econometria/" />
+
+<title>Regressão Linear no R | Insper Data</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.ee6b7d80a649a3e2e269b26a0dc10c67d6dd52d8b6a588c22026288f3e57fdfa.js" integrity="sha256-7mt9gKZJo&#43;LiabJqDcEMZ9bdUti2pYjCICYojz5X/fo="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/logo.png" alt="Logo" /><span>Insper Data</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>Capacitações</strong>
+<ul>
+<li><a href="/docs/example/table-of-contents/">R</a>
+<ul>
+<li><a href="/Capacitacoes/R/Aula1/">ggplot</a></li>
+<li><a href="/Capacitacoes/R/Aula2/">dplyr</a></li>
+</ul>
+</li>
+<li><a href="/docs/example/table-of-contents/">Python</a>
+<ul>
+<li><a href="/docs/example/table-of-contents/with-toc/">Listas</a></li>
+<li><a href="/docs/example/table-of-contents/with-toc/">Funções</a></li>
+</ul>
+</li>
+<li><a href="/docs/example/table-of-contents/">Econometria</a>
+<ul>
+<li><a href="/Capacitacoes/Econometria/Econometria/"class=active>Regressão Linear</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br /></p>
+<ul>
+<li><strong>Projetos</strong></li>
+<li><a href="/docs/shortcodes/buttons/">Buttons</a></li>
+<li><a href="/docs/shortcodes/columns/">Columns</a></li>
+<li><a href="/docs/shortcodes/expand/">Expand</a></li>
+<li><a href="/docs/shortcodes/hints/">Hints</a></li>
+<li><a href="/docs/shortcodes/katex/">Katex</a></li>
+<li><a href="/docs/shortcodes/mermaid/">Mermaid</a></li>
+<li><a href="/docs/shortcodes/tabs/">Tabs</a>
+<br /></li>
+</ul>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/Insper-Data" target="_blank" rel="noopener">
+        Github
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://www.instagram.com/insperdata" target="_blank" rel="noopener">
+        Instagram
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://twitter.com/DataInsper" target="_blank" rel="noopener">
+        Twitter
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Regressão Linear no R</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pacotes-utilizados-para-a-regressão-linear">Pacotes utilizados para a regressão linear</a></li>
+        <li><a href="#base-utilizada">Base utilizada</a></li>
+        <li><a href="#execução-da-regressão-linear">Execução da regressão linear</a>
+          <ul>
+            <li><a href="#resultado">Resultado:</a></li>
+            <li><a href="#adaptação-ao-tidyverse">Adaptação ao tidyverse</a></li>
+            <li><a href="#outras-formas-funcionais">Outras formas funcionais</a></li>
+            <li><a href="#interação">Interação</a></li>
+          </ul>
+        </li>
+        <li><a href="#validando-as-suposições">Validando as suposições</a>
+          <ul>
+            <li><a href="#homocedasticidade">Homocedasticidade</a></li>
+            <li><a href="#normalidade-dos-resíduos">Normalidade dos resíduos</a></li>
+          </ul>
+        </li>
+        <li><a href="#correção-de-erros-nas-suposições">Correção de erros nas suposições</a>
+          <ul>
+            <li><a href="#lidando-com-variáveis-endógenas">Lidando com variáveis endógenas</a></li>
+            <li><a href="#lidando-com-a-heterocedasticidade">Lidando com a heterocedasticidade</a></li>
+          </ul>
+        </li>
+        <li><a href="#visualização-do-modelo">Visualização do modelo</a>
+          <ul>
+            <li><a href="#regressão-linear-simples">Regressão linear simples</a></li>
+            <li><a href="#distribuição-das-amostras">Distribuição das amostras</a></li>
+            <li><a href="#dispersão-dos-resíduos-por-variável">Dispersão dos resíduos por variável</a></li>
+            <li><a href="#distribuição-dos-resíduos">Distribuição dos resíduos</a></li>
+            <li><a href="#influênciaconfiança-dos-estimadores">Influência/Confiança dos estimadores</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">knitr<span style="color:#f92672">::</span>opts_chunk<span style="color:#f92672">$</span><span style="color:#a6e22e">set</span>(message <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</code></pre></div><h2 id="pacotes-utilizados-para-a-regressão-linear">
+  Pacotes utilizados para a regressão linear
+  <a class="anchor" href="#pacotes-utilizados-para-a-regress%c3%a3o-linear">#</a>
+</h2>
+</br>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(skimr)
+</code></pre></div><p>Ferramenta para análise exploratória dos dados.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(tidyverse)
+</code></pre></div><pre><code>## Warning: package 'tidyverse' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'tibble' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'readr' was built under R version 4.0.3
+</code></pre><p>Ferramenta completa para análise de dados.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(tidymodels)
+</code></pre></div><pre><code>## Warning: package 'tidymodels' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'broom' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'dials' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'modeldata' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'parsnip' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'recipes' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'rsample' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'tune' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'workflows' was built under R version 4.0.3
+</code></pre><p>Além de ser uma forte ferramenta de modelagem (utilizando o parsnip, que não veremos por agora), inclui o pacote broom, que transforma o output de um modelo de regressão linear em uma base de dados tidy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(olsrr)
+</code></pre></div><p>Possui diversos testes que validam as suposições do modelo de regressão linear.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(tseries)
+</code></pre></div><p>Possui o teste jarque-bera, que testa a normalidade de um conjunto de dados. Em geral o Shapiro-Wilk test performa melhor, mas o teste Jarque-Bera é o ensinado no curso de econometria.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(estimatr)
+</code></pre></div><pre><code>## Warning: package 'estimatr' was built under R version 4.0.3
+</code></pre><p>Possui uma função de regressão linear com erros padrões robustos, que nos ajuda a contornar a heterocedasticidade.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(AER)
+</code></pre></div><pre><code>## Warning: package 'car' was built under R version 4.0.3
+</code></pre><pre><code>## Warning: package 'sandwich' was built under R version 4.0.3
+</code></pre><p>Possui uma função de regressão com variáveis instrumentais, realizando a regressão linear por meio do método 2SLS (Two-Stage Least Squares).</p>
+<p>O único elemento diferente do curso tradicional de econometria (além da aplicação no R) é o uso do teste Breusch-Pagan de heterocedasticidade ao invés do teste de White. Apesar de ser mais fácil de pronunciar, o teste de White não é feito de forma satisfatória no R. Contudo, ele é apenas um caso especial do teste Breusch-Pagan. Além disso, o teste de White é tão específico que pode indicar outros problemas no modelo que não a heterocedasticidade, não indicando qual o problema encontrado. Dessa forma, o Breusch-Pagan é uma forma menos confusa e mais objetiva de realizar esse teste.</p>
+</br>
+<h2 id="base-utilizada">
+  Base utilizada
+  <a class="anchor" href="#base-utilizada">#</a>
+</h2>
+</br>
+<p>A título de exemplo, utilizaremos a clássica base mtcars, já presente no R. Como ela vem como um data.frame, transformarei ela em um tibble para mais fácil manipulação. Aproveitarei para realizar uma análise exploratória com o skimr.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">tibble</span>(mtcars)
+</code></pre></div><pre><code>## # A tibble: 32 x 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # ... with 22 more rows
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">skim</span>(<span style="color:#a6e22e">tibble</span>(mtcars))
+</code></pre></div><p>Table: Table 1: Data summary</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td style="text-align:left">tibble(mtcars)</td>
+</tr>
+<tr>
+<td style="text-align:left">Number of rows</td>
+<td style="text-align:left">32</td>
+</tr>
+<tr>
+<td style="text-align:left">Number of columns</td>
+<td style="text-align:left">11</td>
+</tr>
+<tr>
+<td style="text-align:left">_______________________</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Column type frequency:</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">numeric</td>
+<td style="text-align:left">11</td>
+</tr>
+<tr>
+<td style="text-align:left">________________________</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Group variables</td>
+<td style="text-align:left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">skim_variable</th>
+<th style="text-align:right">n_missing</th>
+<th style="text-align:right">complete_rate</th>
+<th style="text-align:right">mean</th>
+<th style="text-align:right">sd</th>
+<th style="text-align:right">p0</th>
+<th style="text-align:right">p25</th>
+<th style="text-align:right">p50</th>
+<th style="text-align:right">p75</th>
+<th style="text-align:right">p100</th>
+<th style="text-align:left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mpg</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">20.09</td>
+<td style="text-align:right">6.03</td>
+<td style="text-align:right">10.40</td>
+<td style="text-align:right">15.43</td>
+<td style="text-align:right">19.20</td>
+<td style="text-align:right">22.80</td>
+<td style="text-align:right">33.90</td>
+<td style="text-align:left">▃▇▅▁▂</td>
+</tr>
+<tr>
+<td style="text-align:left">cyl</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">6.19</td>
+<td style="text-align:right">1.79</td>
+<td style="text-align:right">4.00</td>
+<td style="text-align:right">4.00</td>
+<td style="text-align:right">6.00</td>
+<td style="text-align:right">8.00</td>
+<td style="text-align:right">8.00</td>
+<td style="text-align:left">▆▁▃▁▇</td>
+</tr>
+<tr>
+<td style="text-align:left">disp</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">230.72</td>
+<td style="text-align:right">123.94</td>
+<td style="text-align:right">71.10</td>
+<td style="text-align:right">120.83</td>
+<td style="text-align:right">196.30</td>
+<td style="text-align:right">326.00</td>
+<td style="text-align:right">472.00</td>
+<td style="text-align:left">▇▃▃▃▂</td>
+</tr>
+<tr>
+<td style="text-align:left">hp</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">146.69</td>
+<td style="text-align:right">68.56</td>
+<td style="text-align:right">52.00</td>
+<td style="text-align:right">96.50</td>
+<td style="text-align:right">123.00</td>
+<td style="text-align:right">180.00</td>
+<td style="text-align:right">335.00</td>
+<td style="text-align:left">▇▇▆▃▁</td>
+</tr>
+<tr>
+<td style="text-align:left">drat</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3.60</td>
+<td style="text-align:right">0.53</td>
+<td style="text-align:right">2.76</td>
+<td style="text-align:right">3.08</td>
+<td style="text-align:right">3.70</td>
+<td style="text-align:right">3.92</td>
+<td style="text-align:right">4.93</td>
+<td style="text-align:left">▇▃▇▅▁</td>
+</tr>
+<tr>
+<td style="text-align:left">wt</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3.22</td>
+<td style="text-align:right">0.98</td>
+<td style="text-align:right">1.51</td>
+<td style="text-align:right">2.58</td>
+<td style="text-align:right">3.33</td>
+<td style="text-align:right">3.61</td>
+<td style="text-align:right">5.42</td>
+<td style="text-align:left">▃▃▇▁▂</td>
+</tr>
+<tr>
+<td style="text-align:left">qsec</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">17.85</td>
+<td style="text-align:right">1.79</td>
+<td style="text-align:right">14.50</td>
+<td style="text-align:right">16.89</td>
+<td style="text-align:right">17.71</td>
+<td style="text-align:right">18.90</td>
+<td style="text-align:right">22.90</td>
+<td style="text-align:left">▃▇▇▂▁</td>
+</tr>
+<tr>
+<td style="text-align:left">vs</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.44</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:left">▇▁▁▁▆</td>
+</tr>
+<tr>
+<td style="text-align:left">am</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0.41</td>
+<td style="text-align:right">0.50</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">0.00</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:left">▇▁▁▁▆</td>
+</tr>
+<tr>
+<td style="text-align:left">gear</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3.69</td>
+<td style="text-align:right">0.74</td>
+<td style="text-align:right">3.00</td>
+<td style="text-align:right">3.00</td>
+<td style="text-align:right">4.00</td>
+<td style="text-align:right">4.00</td>
+<td style="text-align:right">5.00</td>
+<td style="text-align:left">▇▁▆▁▂</td>
+</tr>
+<tr>
+<td style="text-align:left">carb</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2.81</td>
+<td style="text-align:right">1.62</td>
+<td style="text-align:right">1.00</td>
+<td style="text-align:right">2.00</td>
+<td style="text-align:right">2.00</td>
+<td style="text-align:right">4.00</td>
+<td style="text-align:right">8.00</td>
+<td style="text-align:left">▇▂▅▁▁</td>
+</tr>
+</tbody>
+</table>
+<p>Apesar de todas as variáveis serem numéricas, é possível observar que algumas delas, como a &lsquo;cyl&rsquo;, são variáveis discretas. Por isso, é desejável que elas sejam tratadas como fatores, não como variáveis contínuas. O código a seguir faz exatamente isso, transformando em fatores apenas as variáveis com menos de 6 valores distintos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">df <span style="color:#f92672">&lt;-</span> 
+  <span style="color:#a6e22e">tibble</span>(mtcars) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate_if</span>(<span style="color:#f92672">~</span> <span style="color:#a6e22e">length</span>(<span style="color:#a6e22e">unique</span>(.x)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>, as.factor)
+df
+</code></pre></div><pre><code>## # A tibble: 32 x 11
+##      mpg cyl    disp    hp  drat    wt  qsec vs    am    gear   carb
+##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt;
+##  1  21   6      160    110  3.9   2.62  16.5 0     1     4         4
+##  2  21   6      160    110  3.9   2.88  17.0 0     1     4         4
+##  3  22.8 4      108     93  3.85  2.32  18.6 1     1     4         1
+##  4  21.4 6      258    110  3.08  3.22  19.4 1     0     3         1
+##  5  18.7 8      360    175  3.15  3.44  17.0 0     0     3         2
+##  6  18.1 6      225    105  2.76  3.46  20.2 1     0     3         1
+##  7  14.3 8      360    245  3.21  3.57  15.8 0     0     3         4
+##  8  24.4 4      147.    62  3.69  3.19  20   1     0     4         2
+##  9  22.8 4      141.    95  3.92  3.15  22.9 1     0     4         2
+## 10  19.2 6      168.   123  3.92  3.44  18.3 1     0     4         4
+## # ... with 22 more rows
+</code></pre></br>
+<h2 id="execução-da-regressão-linear">
+  Execução da regressão linear
+  <a class="anchor" href="#execu%c3%a7%c3%a3o-da-regress%c3%a3o-linear">#</a>
+</h2>
+</br>
+<p>O comando a seguir (lm) utiliza o formato de fórmulas do R. O argumento &ldquo;mpg ~ .&rdquo; (que é a fórmula) pode ser lido como &ldquo;mpg explicado por todas as outras variáveis do modelo&rdquo;. O resultado dessa abordagem é idêntico ao resultado caso a fórmula fosse &ldquo;mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb&rdquo;, ou seja, &ldquo;mpg explicado por todas essas variáveis enunciadas&rdquo;. Contudo, escrever assim é claramente mais trabalhoso. Se você quiser usar a maioria das variáveis, mas não todas, é possível escrever no formato &ldquo;mpg ~ . - cyl&rdquo;, que pode ser lido como &ldquo;mpg explicado por todas as variáveis enunciadas com exceção de &lsquo;cyl&rsquo;&rdquo;.</p>
+</br>
+<h3 id="resultado">
+  Resultado:
+  <a class="anchor" href="#resultado">#</a>
+</h3>
+<h4 id="sem-fct_relevel">
+  Sem fct_relevel()
+  <a class="anchor" href="#sem-fct_relevel">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">reg <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> ., data <span style="color:#f92672">=</span> df)
+reg
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ ., data = df)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8         disp           hp         drat  
+##    15.09262     -1.19940      3.05492      0.01257     -0.05712      0.73577  
+##          wt         qsec          vs1          am1        gear4        gear5  
+##    -3.54512      0.76801      2.48849      3.34736     -0.99922      1.06455  
+##        carb  
+##     0.78703
+</code></pre><p>Com isso, é estimado nosso modelo de regressão linear. Ao imprimirmos &ldquo;reg&rdquo;, o console nos mostra as estimativas dos parâmetros de cada um dos fatores da regressão, mas não nos mostra as estatísticas da regressão.</p>
+<p>É interessante notar que, automaticamente, o R reconhece que variáveis em formato de fatores são variáveis dummy e adiciona essas variáveis em quantidade certa, deixando sempre uma dummy como valor base. É possível alterar a dummy base manipulando a variável por meio da função fct_relevel().</p>
+<h4 id="com-fct_relevel">
+  Com fct_relevel()
+  <a class="anchor" href="#com-fct_relevel">#</a>
+</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">df1 <span style="color:#f92672">&lt;-</span> 
+  df <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(am <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_relevel</span>(am, <span style="color:#e6db74">&#34;1&#34;</span>))
+
+reg1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> ., data <span style="color:#f92672">=</span> df1)
+reg1
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ ., data = df1)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8         disp           hp         drat  
+##    18.43997     -1.19940      3.05492      0.01257     -0.05712      0.73577  
+##          wt         qsec          vs1          am0        gear4        gear5  
+##    -3.54512      0.76801      2.48849     -3.34736     -0.99922      1.06455  
+##        carb  
+##     0.78703
+</code></pre><p>É possível perceber que, enquanto na regressão anterior o valor &ldquo;0&rdquo; da variável &ldquo;am&rdquo; tinha ficado oculto, usando o fct_relevel() foi possível transformar o valor oculto em &ldquo;1&rdquo;, sendo esse o novo valor base.</p>
+</br>
+<h3 id="adaptação-ao-tidyverse">
+  Adaptação ao tidyverse
+  <a class="anchor" href="#adapta%c3%a7%c3%a3o-ao-tidyverse">#</a>
+</h3>
+<p>A função summary pertence ao R base e nos mostra a mesma saída que a função &lsquo;reg&rsquo; do Stata.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">summary</span>(reg)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ ., data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2015 -1.2319  0.1033  1.1953  4.3085 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 15.09262   17.13627   0.881   0.3895  
+## cyl6        -1.19940    2.38736  -0.502   0.6212  
+## cyl8         3.05492    4.82987   0.633   0.5346  
+## disp         0.01257    0.01774   0.708   0.4873  
+## hp          -0.05712    0.03175  -1.799   0.0879 .
+## drat         0.73577    1.98461   0.371   0.7149  
+## wt          -3.54512    1.90895  -1.857   0.0789 .
+## qsec         0.76801    0.75222   1.021   0.3201  
+## vs1          2.48849    2.54015   0.980   0.3396  
+## am1          3.34736    2.28948   1.462   0.1601  
+## gear4       -0.99922    2.94658  -0.339   0.7382  
+## gear5        1.06455    3.02730   0.352   0.7290  
+## carb         0.78703    1.03599   0.760   0.4568  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.616 on 19 degrees of freedom
+## Multiple R-squared:  0.8845,	Adjusted R-squared:  0.8116 
+## F-statistic: 12.13 on 12 and 19 DF,  p-value: 1.764e-06
+</code></pre><p>Essencialmente, o summary possui as principais estatísticas para a análise do modelo. Contudo, apesar de muito positivo nesse aspecto, peca por não sair em formato tidy. Para isso, usamos o pacote &ldquo;broom&rdquo;, que possui 3 funções muito úteis na análise de regressões. A função tidy() foca nos parâmetros, mostrando seus valores e estatísticas em formato tidy. A função augment() foca nos resultados do modelo, sendo útil para extrair os resíduos e os resíduos padronizados do modelo. Por último, a função glance() foca na qualidade do modelo, analisando medidas como o <code>\(R^2\)</code> e o teste F-parcial da regressão.</p>
+<p>É bom relembrar que, uma vez com as tabelas tidy, essas poderão ser manipuladas assim como qualquer outro tibble pelo tidyverse.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">tidy</span>(reg)
+</code></pre></div><pre><code>## # A tibble: 13 x 5
+##    term        estimate std.error statistic p.value
+##    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##  1 (Intercept)  15.1      17.1        0.881  0.389 
+##  2 cyl6         -1.20      2.39      -0.502  0.621 
+##  3 cyl8          3.05      4.83       0.633  0.535 
+##  4 disp          0.0126    0.0177     0.708  0.487 
+##  5 hp           -0.0571    0.0317    -1.80   0.0879
+##  6 drat          0.736     1.98       0.371  0.715 
+##  7 wt           -3.55      1.91      -1.86   0.0789
+##  8 qsec          0.768     0.752      1.02   0.320 
+##  9 vs1           2.49      2.54       0.980  0.340 
+## 10 am1           3.35      2.29       1.46   0.160 
+## 11 gear4        -0.999     2.95      -0.339  0.738 
+## 12 gear5         1.06      3.03       0.352  0.729 
+## 13 carb          0.787     1.04       0.760  0.457
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">augment</span>(reg)
+</code></pre></div><pre><code>## # A tibble: 32 x 17
+##      mpg cyl    disp    hp  drat    wt  qsec vs    am    gear   carb .fitted
+##    &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1  21   6      160    110  3.9   2.62  16.5 0     1     4         4    21.3
+##  2  21   6      160    110  3.9   2.88  17.0 0     1     4         4    20.9
+##  3  22.8 4      108     93  3.85  2.32  18.6 1     1     4         1    25.7
+##  4  21.4 6      258    110  3.08  3.22  19.4 1     0     3         1    19.9
+##  5  18.7 8      360    175  3.15  3.44  17.0 0     0     3         2    17.4
+##  6  18.1 6      225    105  2.76  3.46  20.2 1     0     3         1    19.3
+##  7  14.3 8      360    245  3.21  3.57  15.8 0     0     3         4    13.7
+##  8  24.4 4      147.    62  3.69  3.19  20   1     0     4         2    23.2
+##  9  22.8 4      141.    95  3.92  3.15  22.9 1     0     4         2    23.8
+## 10  19.2 6      168.   123  3.92  3.44  18.3 1     0     4         4    18.4
+## # ... with 22 more rows, and 5 more variables: .resid &lt;dbl&gt;, .std.resid &lt;dbl&gt;,
+## #   .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">glance</span>(reg)
+</code></pre></div><pre><code>## # A tibble: 1 x 12
+##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.885         0.812  2.62      12.1 1.76e-6    12  -67.8  164.  184.
+## # ... with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
+</code></pre></br>
+<h3 id="outras-formas-funcionais">
+  Outras formas funcionais
+  <a class="anchor" href="#outras-formas-funcionais">#</a>
+</h3>
+</br>
+<p>Por enquanto tratamos apenas de formas funcionais em que não há manipulação matemática das variáveis. Contudo, existem diversas outras maneiras de modelar uma relação entre variáveis: modelos logarítmicos, quadráticos, etc. Mostraremos agora como fazer essas manipulações agora</p>
+<p>Em um modelo log-nível, log-log ou nível-log, basta aplicar a operação log() na variável desejada. Essa operação funciona dessa maneira simples porque log() entra como uma função, e dessa forma já é reconhecida pelo R como a nova forma funcional da variável.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> <span style="color:#a6e22e">log</span>(hp) <span style="color:#f92672">+</span> cyl, data <span style="color:#f92672">=</span> df)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ log(hp) + cyl, data = df)
+## 
+## Coefficients:
+## (Intercept)      log(hp)         cyl6         cyl8  
+##      52.346       -5.858       -4.529       -6.090
+</code></pre><p>No caso de um modelo quadrático, no entanto, como o operador &ldquo;^&rdquo; não é reconhecido como uma função, simplesmente colocarmos hp^2 não é o suficiente para o modelo reconhecer a variável como uma quadrática.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> hp^2 <span style="color:#f92672">+</span> cyl, data <span style="color:#f92672">=</span> df)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp^2 + cyl, data = df)
+## 
+## Coefficients:
+## (Intercept)           hp         cyl6         cyl8  
+##    28.65012     -0.02404     -5.96766     -8.52085
+</code></pre><p>Como podemos observar, o modelo não reconhece o hp como uma variável que deve ser elevada ao quadrado. Isso ocorre por reconhecer apenas a variável, não o operador.</p>
+<p>Para consertar esse problema podemos usar a função I(), que permite que o R interprete a variável como uma quadrática.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> <span style="color:#a6e22e">I</span>(hp^2) <span style="color:#f92672">+</span> cyl, data <span style="color:#f92672">=</span> df)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ I(hp^2) + cyl, data = df)
+## 
+## Coefficients:
+## (Intercept)      I(hp^2)         cyl6         cyl8  
+##   2.691e+01   -3.460e-05   -6.636e+00   -1.022e+01
+</code></pre></br>
+<h3 id="interação">
+  Interação
+  <a class="anchor" href="#intera%c3%a7%c3%a3o">#</a>
+</h3>
+</br>
+<p>uando o efeito de uma variável explicativa na variável resposta depende do valor de uma outra variável resposta, podemos dizer que há uma interação entre ambas. Esse fenômeno pode ser traduzido como uma multiplicação entre as duas no modelo e é exatamente assim que o R reconhece uma interação.</p>
+<p>Supondo uma interação entre duas variáveis contínuas x1 e x2, podemos interpretar que o efeito da variação de x1 na variável resposta do modelo será diferente dependendo do valor em que a variável x2 estiver. Se a interação ocorrer entre uma variável contínua x1 e uma dummy x2, podemos interpretar que o coeficiente dessa interação representará o efeito adicional de x1 na variável resposta caso a x2 seja igual a um.</p>
+<p>Existem duas formas de realizar essa operação no R:</p>
+<p>Podemos usar o operador &ldquo;*&rdquo;, que vai multiplicar uma variável pela outra e inserir no modelo a interação entre ambas, além de incluir as próprias variáveis de forma isolada.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> hp <span style="color:#f92672">*</span> cyl, data <span style="color:#f92672">=</span> df)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp * cyl, data = df)
+## 
+## Coefficients:
+## (Intercept)           hp         cyl6         cyl8      hp:cyl6      hp:cyl8  
+##    35.98303     -0.11278    -15.30917    -17.90295      0.10516      0.09853
+</code></pre><p>Dessa forma, é possível observar que o modelo possui, além da interação em si, a variável hp e as variáveis dummys de cyl apresentadas isoladamente.</p>
+<p>Às vezes isso não é desejável, e para isso usamos o operador &ldquo;:&rdquo;, que nos permite inserir uma interação sem inserir as variáveis isoladamente.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">lm</span>(mpg <span style="color:#f92672">~</span> hp <span style="color:#f92672">:</span> cyl, data <span style="color:#f92672">=</span> df)
+</code></pre></div><pre><code>## 
+## Call:
+## lm(formula = mpg ~ hp:cyl, data = df)
+## 
+## Coefficients:
+## (Intercept)      hp:cyl4      hp:cyl6      hp:cyl8  
+##   25.389444     0.008352    -0.044917    -0.047356
+</code></pre></br>
+<h2 id="validando-as-suposições">
+  Validando as suposições
+  <a class="anchor" href="#validando-as-suposi%c3%a7%c3%b5es">#</a>
+</h2>
+</br>
+<p>O modelo de regressão linear depende de 6 suposições:</p>
+<ol>
+<li>
+<p>O modelo de regressão é linear nos parâmetros</p>
+</li>
+<li>
+<p>A amostragem é aleatória</p>
+</li>
+</ol>
+<ul>
+<li>independente</li>
+<li>identicamente distribuída</li>
+</ul>
+<ol start="3">
+<li>Existe variação amostral no regressor</li>
+</ol>
+<ul>
+<li>os regressores apresentam variação amostral</li>
+<li>não há relação linear perfeita entre os regressores</li>
+</ul>
+<ol start="4">
+<li>A média condicional do erro é zero <code>\(\Rightarrow E(\varepsilon|x_i) = 0\)</code></li>
+</ol>
+<ul>
+<li>o valor do erro não pode depender do valor de nenhuma variável</li>
+<li>existe intercepto</li>
+<li><code>\(x_i\)</code> é exógeno</li>
+<li>ausência de correlação entre o termo de erro aleatório e as variáveis independentes</li>
+</ul>
+<ol start="5">
+<li>Homocedasticidade <code>\(\Rightarrow Var(\varepsilon|x) = \sigma^2\)</code></li>
+</ol>
+<ul>
+<li>o termo de erro aleatório tem a mesma variância dado quaisquer conjunto de valores para os regressores</li>
+</ul>
+<ol start="6">
+<li>O termo de erro aleatório não observável, <code>\(\varepsilon\)</code>, é:</li>
+</ol>
+<ul>
+<li>independente dos regressores <code>\(x_i\)</code></li>
+<li>normalmente distribuído, com média zero e variância <code>\(\sigma^2_\varepsilon\)</code> <code>\(\Rightarrow ~ \sim N(0;\sigma^2_\varepsilon)\)</code></li>
+</ul>
+</br>
+<p>Algumas suposições são validadas apenas olhando para o modelo escolhido ou para a amostra, como as suposições 1 a 3. Outras, como a 4, são validadas por meio da argumentação (a 4 exige uma validação da exogeneidade das variáveis independentes do modelo). Outras, como é o caso das suposições 5 e 6, são validadas por meio de testes com o modelo. Estudaremos agora como realizar esses testes no R de maneira simples.</p>
+</br>
+<h3 id="homocedasticidade">
+  Homocedasticidade
+  <a class="anchor" href="#homocedasticidade">#</a>
+</h3>
+</br>
+<p>Durante a matéria de econometria, nos acostumamos a usar o teste de White para testar a homodasticidade do modelo. Contudo, um teste mais utilizado e de mais fácil acesso no R é o teste de Breusch-Pagan. No final o resultado é o mesmo: o teste consiste em um teste de hipótese em que Ho é a homocedasticidade e Ha é a heterocedasticidade. Caso o p-valor do teste seja menor do que o nível de significância escolhido, a hipótese nula é rejeitada e o teste passa a indicar a heterocedasticidade do modelo.</p>
+<p>A função abaixo vem do pacote &ldquo;olsrr&rdquo;, que possui diversos testes para o modelo de regressão linear por MQO.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">ols_test_breusch_pagan</span>(reg)
+</code></pre></div><pre><code>## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##              Data               
+##  -------------------------------
+##  Response : mpg 
+##  Variables: fitted values of mpg 
+## 
+##         Test Summary         
+##  ----------------------------
+##  DF            =    1 
+##  Chi2          =    0.6807846 
+##  Prob &gt; Chi2   =    0.4093167
+</code></pre><p>No caso desse exemplo o p-valor é 0.4093, maior do que qualquer nível de significância racional. Dessa forma, é possível concluir que há evidências de que a quinta suposição do modelo de regressão linear é válida.</p>
+</br>
+<h3 id="normalidade-dos-resíduos">
+  Normalidade dos resíduos
+  <a class="anchor" href="#normalidade-dos-res%c3%adduos">#</a>
+</h3>
+</br>
+<p>Assim como no teste de homocedasticidade, utilizaremos um teste de normalidade diferente do que vemos na sala de aula. Segundo <a href="https://www.tandfonline.com/doi/pdf/10.1080/00949655.2010.520163">um paper do Journal of Statistical Computation and Simulation</a>, que analisou a qualidade de cada teste de normalidade empiricamente, o teste jarque-bera, utilizado em sala de aula, tem performance consistentemente pior ao que usaremos no R, o teste Shapiro-Wilk. Além de menos consistente, a interface do teste JB no R é menos consistente com o tidyverse do que a interface do teste SW. Enquanto o SW aceita uma especificação de modelo (reg), o JB aceita apenas um vetor contendo os resíduos do modelo, sendo menos prático.</p>
+<p>Contudo, mostrarei a forma de realizar o teste JB no R também, apesar de não indicar.</p>
+<p>O teste SW também é proveniente do pacote &ldquo;olsrr&rdquo;, enquanto o teste JB vem do pacote &ldquo;tseries&rdquo;.</p>
+<p>Assim como no teste de heterocedasticidade, o teste de normalidade é composto por um teste de hipóteses, onde Ho é a normalidade da distribuição e Ha é a não normalidade da distribuição. Um p-valor abaixo do nível de significância indica a não normalidade da distribuição, enquanto um p-valor alto indica a normalidade da distribuição.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">ols_test_normality</span>(reg) <span style="color:#75715e"># Shapiro-Wilk test</span>
+</code></pre></div><pre><code>## -----------------------------------------------
+##        Test             Statistic       pvalue  
+## -----------------------------------------------
+## Shapiro-Wilk              0.9503         0.1472 
+## Kolmogorov-Smirnov        0.1255         0.6490 
+## Cramer-von Mises            2            0.0000 
+## Anderson-Darling          0.4316         0.2874 
+## -----------------------------------------------
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">jarque.bera.test</span>(reg<span style="color:#f92672">$</span>residuals) <span style="color:#75715e"># Jarque-Bera test</span>
+</code></pre></div><pre><code>## 
+## 	Jarque Bera Test
+## 
+## data:  reg$residuals
+## X-squared = 1.4055, df = 2, p-value = 0.4952
+</code></pre><p>Dessa forma, quanto no teste JB quanto no SW é possível observar que essa distribuição pode ser considerada normal.</p>
+<p>Interessante notar que o comando ols_test_normality() retorna o resultado de mais de um teste de normalidade. O melhor continua sendo o SW, mas mostra a solidez desse pacote na análise de dados.</p>
+</br>
+<h2 id="correção-de-erros-nas-suposições">
+  Correção de erros nas suposições
+  <a class="anchor" href="#corre%c3%a7%c3%a3o-de-erros-nas-suposi%c3%a7%c3%b5es">#</a>
+</h2>
+</br>
+<p>Mas e quando as suposições não são validadas? Quando o modelo, não importa o que você faça, continua heterocedástico? Quando você sabe que uma das variáveis é endógena?</p>
+<p>Existem algumas técnicas que são utilizadas para corrigir esses problemas. Abordarei aqui duas delas: a regressão robusta e as variáveis instrumentais.</p>
+</br>
+<h3 id="lidando-com-variáveis-endógenas">
+  Lidando com variáveis endógenas
+  <a class="anchor" href="#lidando-com-vari%c3%a1veis-end%c3%b3genas">#</a>
+</h3>
+</br>
+<p>Quando um regressor “X1” é identificado com endógeno ao modelo, a estimativa dos parâmetros se torna viesada, anulando a validade da regressão. Portanto, a necessidade de corrigir a endogeneidade torna-se evidente. Uma opção é a utilização de variáveis de instrumento: variáveis capazes de explicar a variável X1, mas que não afetam diretamente a variável resposta Y do modelo. Utilizando variáveis instrumentais conseguimos isolar a porção enxógena de variáveis endógenas, tornando nossas estimativas estatisticamente válidas.</p>
+<p>Essa metodologia também resulta em uma regressão de dois estágios (2SLS), pois está sendo realizada uma regressão para a variável resposta Y do modelo e outra para a variável X1.</p>
+<p>Para a introdução de instrumentos em ume regressão no R, é recomendável a utilização da função ivreg() do pacote ‘AER’. Um exemplo genérico seria:</p>
+<p>ivreg(Y ~ X + W | W + Z, &hellip; )</p>
+<p>Sendo que Y é a variável resposta do modelo, X é uma variável endógena, W é uma variável exógena de controle e Z é um instrumento para X.</p>
+<p>Trazendo para o nosso exemplo do mtcars (sem ser criterioso em relação a que variáveis são endógenas ou exógenas, só focando na metodologia em si), a regressão pode seguir esse formato:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">iv <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ivreg</span>(mpg <span style="color:#f92672">~</span> hp <span style="color:#f92672">+</span> gear <span style="color:#f92672">+</span> drat <span style="color:#f92672">+</span> qsec <span style="color:#f92672">+</span> disp<span style="color:#f92672">|</span> . <span style="color:#f92672">-</span> gear <span style="color:#f92672">-</span> hp <span style="color:#f92672">+</span> cyl <span style="color:#f92672">+</span> carb, data <span style="color:#f92672">=</span> df)
+iv
+</code></pre></div><pre><code>## 
+## Call:
+## ivreg(formula = mpg ~ hp + gear + drat + qsec + disp | . - gear -     hp + cyl + carb, data = df)
+## 
+## Coefficients:
+## (Intercept)           hp        gear4        gear5         drat         qsec  
+##   -14.46322     -0.02077    -13.10866     -2.29526      8.78119      1.08150  
+##        disp  
+##    -0.03472
+</code></pre><p>Ao lado esquerdo fica a regressão linear que será utilizada. Ao lado direito, separadas pelo operador &ldquo;|&rdquo;, ficam todas as variáveis exógenas que serão utilizadas, regressores ou variáveis instrumentais. O &ldquo;.&rdquo; utilizado &ldquo;puxa&rdquo; todas as variáveis do modelo como exógenas, e o sinal de menos em &ldquo;gear&rdquo; e &ldquo;hp&rdquo; indica que essas variáveis do modelo na verdade são endógenas. &ldquo;Cyl&rdquo; e &ldquo;carb&rdquo;, como não estão presentes no modelo, são consideradas variáveis intrumentais.</p>
+<p>Esse formato é útil quando o modelo conta com muitos regressores, mas as duas formas de escrever (ditando variável a variável ou usando o &ldquo;.&rdquo; e excluindo as variáveis endógenas) são válidas.</p>
+<p>O formato do resultado desse modelo é bem parecido com o formato da lm(), funcionando com tidy(), glance() e augment(). A única diferença é que a função augment() não retorna os resíduos padronizados do modelo. Contudo, inseri abaixo um código que conserta essa diferença.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">tidy</span>(iv)
+</code></pre></div><pre><code>## # A tibble: 7 x 5
+##   term        estimate std.error statistic p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept) -14.5      34.8       -0.416  0.681 
+## 2 hp           -0.0208    0.0457    -0.454  0.653 
+## 3 gear4       -13.1       8.95      -1.46   0.156 
+## 4 gear5        -2.30      7.53      -0.305  0.763 
+## 5 drat          8.78      4.90       1.79   0.0849
+## 6 qsec          1.08      1.30       0.832  0.413 
+## 7 disp         -0.0347    0.0274    -1.27   0.217
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">glance</span>(iv)
+</code></pre></div><pre><code>## # A tibble: 1 x 8
+##   r.squared adj.r.squared sigma statistic  p.value    df df.residual  nobs
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;       &lt;int&gt; &lt;int&gt;
+## 1     0.544         0.435  4.53      7.54 0.000109     7          25    32
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">augment</span>(iv) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(.std.resid <span style="color:#f92672">=</span> <span style="color:#a6e22e">scale</span>(.resid))
+</code></pre></div><pre><code>## # A tibble: 32 x 11
+##      mpg    hp gear   drat  qsec  disp cyl    carb .fitted .resid .std.resid[,1]
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+##  1  21     110 4      3.9   16.5  160  6         4    16.6  4.36           1.07 
+##  2  21     110 4      3.9   17.0  160  6         4    17.2  3.76           0.924
+##  3  22.8    93 4      3.85  18.6  108  4         1    20.7  2.12           0.521
+##  4  21.4   110 3      3.08  19.4  258  6         1    22.4 -0.965         -0.237
+##  5  18.7   175 3      3.15  17.0  360  8         2    15.5  3.23           0.794
+##  6  18.1   105 3      2.76  20.2  225  6         1    21.6 -3.55          -0.872
+##  7  14.3   245 3      3.21  15.8  360  8         4    13.3  1.03           0.254
+##  8  24.4    62 4      3.69  20    147. 4         2    20.1  4.32           1.06 
+##  9  22.8    95 4      3.92  22.9  141. 4         2    24.8 -1.96          -0.480
+## 10  19.2   123 4      3.92  18.3  168. 6         4    18.3  0.932          0.229
+## # ... with 22 more rows
+</code></pre></br>
+<h3 id="lidando-com-a-heterocedasticidade">
+  Lidando com a heterocedasticidade
+  <a class="anchor" href="#lidando-com-a-heterocedasticidade">#</a>
+</h3>
+</br>
+<p>Quando violada a suposição de homocedasticidade (termo de erro aleatório e de variância constante), há presença de heterocedasticidade em uma regressão. Diante disso, é interessante buscar alguma metodologia que forneça resultados válidos. Uma possibilidade é a realização de uma regressão na forma robusta.</p>
+<p>Para estimar uma regressão robusta no R, basta utilizar o comando lm_robust() do pacote &lsquo;estimatr&rsquo;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rob <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">lm_robust</span>(mpg <span style="color:#f92672">~</span> ., data <span style="color:#f92672">=</span> df, se_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;stata&#34;</span>)
+rob
+</code></pre></div><pre><code>##                Estimate  Std. Error    t value   Pr(&gt;|t|)    CI Lower
+## (Intercept) 15.09261548 16.12119914  0.9361968 0.36091984 -18.6494421
+## cyl6        -1.19939698  2.05023173 -0.5850056 0.56542741  -5.4905813
+## cyl8         3.05491692  4.35714324  0.7011284 0.49172154  -6.0646887
+## disp         0.01256810  0.01630130  0.7709880 0.45019615  -0.0215509
+## hp          -0.05711722  0.02780048 -2.0545409 0.05393948  -0.1153043
+## drat         0.73576811  1.73130047  0.4249800 0.67562533  -2.8878854
+## wt          -3.54511861  2.03646021 -1.7408239 0.09788459  -7.8074788
+## qsec         0.76801287  0.67413159  1.1392625 0.26875387  -0.6429608
+## vs1          2.48849171  1.39113557  1.7888204 0.08960016  -0.4231885
+## am1          3.34735713  2.11720713  1.5810249 0.13037638  -1.0840083
+## gear4       -0.99921782  2.56628196 -0.3893640 0.70133658  -6.3705077
+## gear5        1.06454635  2.51973516  0.4224834 0.67741481  -4.2093200
+## carb         0.78702815  0.96004620  0.8197815 0.42250588  -1.2223716
+##                CI Upper DF
+## (Intercept) 48.83467307 19
+## cyl6         3.09178734 19
+## cyl8        12.17452252 19
+## disp         0.04668711 19
+## hp           0.00106985 19
+## drat         4.35942164 19
+## wt           0.71724160 19
+## qsec         2.17898650 19
+## vs1          5.40017193 19
+## am1          7.77872257 19
+## gear4        4.37207204 19
+## gear5        6.33841266 19
+## carb         2.79642794 19
+</code></pre><p>Os resultados desse modelo contam com a heterocedasticidade no cálculo dos erros padrões das estimativas dos parâmetros, tornando os testes de hipótese válidos. Importante ressaltar que o modelo robusto não corrige a heterocedasticidade, apenas conta com ela no cálculo</p>
+<p>Um problema é que o formato dessa regressão é diferente do formato do comando lm(), mas passarei aqui pelas análises possíveis na regressão robusta.</p>
+<p>Primeiramente, quando rodamos o summary() da regressão o resultado é diferente, mas ainda possui as informações importantes: estimativas, erros padrões, p-valor, intervalo de confiança e o <code>\(R^2\)</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">summary</span>(rob)
+</code></pre></div><pre><code>## 
+## Call:
+## lm_robust(formula = mpg ~ ., data = df, se_type = &quot;stata&quot;)
+## 
+## Standard error type:  HC1 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  CI Lower CI Upper DF
+## (Intercept) 15.09262    16.1212  0.9362  0.36092 -18.64944 48.83467 19
+## cyl6        -1.19940     2.0502 -0.5850  0.56543  -5.49058  3.09179 19
+## cyl8         3.05492     4.3571  0.7011  0.49172  -6.06469 12.17452 19
+## disp         0.01257     0.0163  0.7710  0.45020  -0.02155  0.04669 19
+## hp          -0.05712     0.0278 -2.0545  0.05394  -0.11530  0.00107 19
+## drat         0.73577     1.7313  0.4250  0.67563  -2.88789  4.35942 19
+## wt          -3.54512     2.0365 -1.7408  0.09788  -7.80748  0.71724 19
+## qsec         0.76801     0.6741  1.1393  0.26875  -0.64296  2.17899 19
+## vs1          2.48849     1.3911  1.7888  0.08960  -0.42319  5.40017 19
+## am1          3.34736     2.1172  1.5810  0.13038  -1.08401  7.77872 19
+## gear4       -0.99922     2.5663 -0.3894  0.70134  -6.37051  4.37207 19
+## gear5        1.06455     2.5197  0.4225  0.67741  -4.20932  6.33841 19
+## carb         0.78703     0.9600  0.8198  0.42251  -1.22237  2.79643 19
+## 
+## Multiple R-squared:  0.8845 ,	Adjusted R-squared:  0.8116 
+## F-statistic: 44.74 on 12 and 19 DF,  p-value: 2.479e-11
+</code></pre><p>Para conseguirmos os dados do comando tidy() e do comando glance() no modelo robusto precisamos de apenas um comando a mais: o tibble(). Sem ele o modelo retorna um data frame, não sendo muito condizente com o tidyverse. Com esses comandos o resultado torna-se idêntico ao resultado com regressões lineares não robustas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">tidy</span>(rob) <span style="color:#f92672">%&gt;%</span> tibble
+</code></pre></div><pre><code>## # A tibble: 13 x 9
+##    term    estimate std.error statistic p.value conf.low conf.high    df outcome
+##    &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+##  1 (Inter~  15.1      16.1        0.936  0.361  -18.6     48.8        19 mpg    
+##  2 cyl6     -1.20      2.05      -0.585  0.565   -5.49     3.09       19 mpg    
+##  3 cyl8      3.05      4.36       0.701  0.492   -6.06    12.2        19 mpg    
+##  4 disp      0.0126    0.0163     0.771  0.450   -0.0216   0.0467     19 mpg    
+##  5 hp       -0.0571    0.0278    -2.05   0.0539  -0.115    0.00107    19 mpg    
+##  6 drat      0.736     1.73       0.425  0.676   -2.89     4.36       19 mpg    
+##  7 wt       -3.55      2.04      -1.74   0.0979  -7.81     0.717      19 mpg    
+##  8 qsec      0.768     0.674      1.14   0.269   -0.643    2.18       19 mpg    
+##  9 vs1       2.49      1.39       1.79   0.0896  -0.423    5.40       19 mpg    
+## 10 am1       3.35      2.12       1.58   0.130   -1.08     7.78       19 mpg    
+## 11 gear4    -0.999     2.57      -0.389  0.701   -6.37     4.37       19 mpg    
+## 12 gear5     1.06      2.52       0.422  0.677   -4.21     6.34       19 mpg    
+## 13 carb      0.787     0.960      0.820  0.423   -1.22     2.80       19 mpg
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">glance</span>(rob) <span style="color:#f92672">%&gt;%</span> tibble
+</code></pre></div><pre><code>## # A tibble: 1 x 7
+##   r.squared adj.r.squared statistic  p.value df.residual  nobs se_type
+##       &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  
+## 1     0.885         0.812      44.7 2.48e-11          19    32 HC1
+</code></pre><p>Contudo, o comando augment() não é aplicável a esse formato. Isso dificultaria a extração dos valores previstos, resíduos e dos resíduos padronizados, mas montei esse comando para extrair essas informações da regressão, como se utilizássemos o augment().</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rob<span style="color:#f92672">$</span>fitted.values <span style="color:#f92672">%&gt;%</span> 
+  tibble <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">bind_cols</span>(mpg <span style="color:#f92672">=</span> df<span style="color:#f92672">$</span>mpg) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">rename</span>(.fitted <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;.&#34;</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(.resid <span style="color:#f92672">=</span> mpg <span style="color:#f92672">-</span> .fitted,
+         .std.resid <span style="color:#f92672">=</span> <span style="color:#a6e22e">scale</span>(.resid))
+</code></pre></div><pre><code>## # A tibble: 32 x 4
+##    .fitted   mpg .resid .std.resid[,1]
+##      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+##  1    21.3  21   -0.340        -0.166 
+##  2    20.9  21    0.134         0.0653
+##  3    25.7  22.8 -2.86         -1.40  
+##  4    19.9  21.4  1.47          0.719 
+##  5    17.4  18.7  1.26          0.613 
+##  6    19.3  18.1 -1.19         -0.582 
+##  7    13.7  14.3  0.602         0.294 
+##  8    23.2  24.4  1.18          0.574 
+##  9    23.8  22.8 -1.00         -0.490 
+## 10    18.4  19.2  0.845         0.412 
+## # ... with 22 more rows
+</code></pre><p>Com esses comandos deve ser possível seguir sua análise do modelo linear sem se preocupar com a heterocedasticidade do mesmo.</p>
+</br>
+<h2 id="visualização-do-modelo">
+  Visualização do modelo
+  <a class="anchor" href="#visualiza%c3%a7%c3%a3o-do-modelo">#</a>
+</h2>
+</br>
+<p>Algumas formas de visualização são muito convenientes para a análise do modelo de regressão linear. Claro que não existem limites, existem diversas visualizações extremamente úteis, mas aqui passarei pelas principais visualizações a serem utilizadas no processo de análise de dados.</p>
+</br>
+<h3 id="regressão-linear-simples">
+  Regressão linear simples
+  <a class="anchor" href="#regress%c3%a3o-linear-simples">#</a>
+</h3>
+</br>
+<p>Modelos de regressão linear simples são bons para visualizarmos a intuição do modelo de regressão linear. Essa análise é dificultada em modelos mais complexos pela existência de mais de duas dimensões no modelo.</p>
+<p>Supondo que iremos realizar uma regressão que explica mpg por hp, podemos visualizar esse modelo diretamente no ggplot utilizando geom_smooth():</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">ggplot</span>(df, <span style="color:#a6e22e">aes</span>(hp, mpg)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_smooth</span>(method <span style="color:#f92672">=</span> lm, se <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>O método indica ao R que o modelo a ser usado será o de regressão linear (lm) e se = FALSE tira o intervalo de confiança da visualização.</p>
+</br> 
+<h3 id="distribuição-das-amostras">
+  Distribuição das amostras
+  <a class="anchor" href="#distribui%c3%a7%c3%a3o-das-amostras">#</a>
+</h3>
+</br>
+<p>Para testarmos se as amostras são de fato aleatórias é conveniente criarmos um identificador de cada amostra. Além disso, é conveniente realizar essa análise com todas as variáveis ao mesmo tempo, contando com os resíduos e as variáveis explicativas. Dessa forma, terminamos com um diagrama que indica se houve qualquer parcialidade na retirada da amostra.</p>
+<p>Portanto, buscamos gráficos aleatórios, sem tendência alguma. Qualquer tendência pode ser problemática.</p>
+<p>No exemplo, extraímos as informações que queríamos do modelo com augment(), que além das observações inclui o valores previsto e o resíduo de cada observação. Retiramos os últimos dados porque não são tão relevantes nessa análise, inserimos um índice de identificação de cada observação e, por último, transformamos os dados factor em numéricos (usando uma string como formato intermediário) para facilitar as futuras transformações.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">observations <span style="color:#f92672">&lt;-</span> 
+  reg <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">augment</span>() <span style="color:#f92672">%&gt;%</span>  
+  <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(.hat<span style="color:#f92672">:</span>.cooksd)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(id <span style="color:#f92672">=</span> <span style="color:#a6e22e">seq_along</span>(mpg)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate_if</span>(is.factor, as.character) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate_if</span>(is.character, as.double)
+</code></pre></div><p>Para a visualização é bom utilizar um pequeno hack. Seria muito conveniente fazer essa análise por meio de facetas, sem ter que analisar variável por variável. Porém, facetas funcionam dentro de uma mesma variável, como resolver?</p>
+<p>A solução, apesar de simples, é contraintuitiva. Podemos deixar a tabela não tidy utilizando pivot longer (ao redor da variável ID), resultando em uma coluna com todos os valores e outra indicando a qual variável esse valor pertece, além da coluna que indica o ID de cada observação. Com isso, podemos plotar no eixo x o ID de cada observação e no eixo y o valor das variáveis, utilizando o facet wrap para separar as variáveis.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">observations <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate_all</span>(as.double) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(.resid, .fitted)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pivot_longer</span>(<span style="color:#f92672">-</span>id) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(id, value)) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#a6e22e">vars</span>(name), scales <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free&#34;</span>) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ID&#34;</span>,
+         y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+         title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Checagem de amostragem aleatória&#34;</span>,
+         subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;subdividida por variável&#34;</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</br>
+<h3 id="dispersão-dos-resíduos-por-variável">
+  Dispersão dos resíduos por variável
+  <a class="anchor" href="#dispers%c3%a3o-dos-res%c3%adduos-por-vari%c3%a1vel">#</a>
+</h3>
+</br>
+<p>Assim como analisar a distribuição das variáveis ao longo da amostra é útil para verificar a aleatoriedade da amostra, analisar a distribuição dos resíduos de acordo com as variáveis é útil para verificar a ausência de padrões (que são prejudiciais à validade do modelo). Devemos verificar, nessa análise, se existem relações entre as variáveis, se existem outliers e se existe uma discrepância visível na variância de acordo com o valor de uma variável.</p>
+<p>A técnica utilizada será quase idêntica à anterior, com exceção de que pivotaremos ao redor dos resíduos padronizados do modelo, não do ID. Devemos fazer isso pois o que nos interessa é a relação dos resíduos com as outras variáveis, não da ordem das observações.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">observations <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate_all</span>(as.double) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span><span style="color:#a6e22e">c</span>(.fitted, .resid)) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">pivot_longer</span>(<span style="color:#ae81ff">-.</span>std.resid) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(value, .std.resid)) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">facet_wrap</span>(<span style="color:#a6e22e">vars</span>(name), scales <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;free&#34;</span>) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+         y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Resíduos padronizados&#34;</span>,
+         title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Análise dos resíduos&#34;</span>,
+         subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;subdividida por variável&#34;</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+</br>
+<h3 id="distribuição-dos-resíduos">
+  Distribuição dos resíduos
+  <a class="anchor" href="#distribui%c3%a7%c3%a3o-dos-res%c3%adduos">#</a>
+</h3>
+</br>
+<p>Além do teste Shapiro-Wilk de normalidade, podemos criar um histograma ou gráfico de densidade para mostrar, visualmente, a distribuição dos resíduos. É possível argumentar, dada a distribuição se essa se assemelha a uma normal ou não.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">observations <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">ggplot</span>(<span style="color:#a6e22e">aes</span>(.resid)) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">stat_function</span>(fun <span style="color:#f92672">=</span> dnorm, args <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(mean <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+                                     sd <span style="color:#f92672">=</span> <span style="color:#a6e22e">sd</span>(observations<span style="color:#f92672">$</span>.resid)),
+                  geom <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;line&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;black&#34;</span>) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">geom_density</span>(fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>, alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">.4</span>) <span style="color:#f92672">+</span>
+    <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Resíduos&#34;</span>,
+         y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Densidade&#34;</span>,
+         title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Distribuição dos resíduos do modelo&#34;</span>,
+         subtitle <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sobreposta por uma curva normal&#34;</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Ademais, podemos usar um qqplot, ou seja, um gráfico que cruza os resíduos do modelo com estimativas normais. Quanto mais próximo de uma reta com inclinação 1, mais próximo de uma normal a distribuição é.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">ggplot</span>(observations, <span style="color:#a6e22e">aes</span>(sample <span style="color:#f92672">=</span> .resid)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_qq_line</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_qq</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Valores previstos&#34;</span>,
+       y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Valores reais&#34;</span>,
+       title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;QQPlot dos resíduos&#34;</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</br>
+<h3 id="influênciaconfiança-dos-estimadores">
+  Influência/Confiança dos estimadores
+  <a class="anchor" href="#influ%c3%aanciaconfian%c3%a7a-dos-estimadores">#</a>
+</h3>
+</br>
+<p>Por último, vou mostrar uma maneira simples e intuitiva de mostrar os resultados de seu modelo. Uma maneira gráfica de mostrar a significância e o grau de impacto de cada estimador.</p>
+<p>Para isso, iremos extrair do nosso modelo o valor das estimativas que fizemos, além do intervalo de confiança de cada uma delas, por meio da função tidy(), adicionando o parâmetro &ldquo;conf.int = TRUE&rdquo; para incluir os intervalos de confiança na análise. Em seguida, reordenamos os termos de acordo com o grau das estimativas para facilitar a visualização do gráfico.</p>
+<p>Por último, fazemos o gráfico com geom points para indicar o valor das estimativas e geom errorbars para indicar o intervalo de confiança. Como um detalhe a mais, podemos colorir as barras de acordo com a significância, com as barras significantes sendo pretas e as não significantes sendo vermelhas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">estimations <span style="color:#f92672">&lt;-</span> 
+  reg <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">tidy</span>(conf.int <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>) <span style="color:#f92672">%&gt;%</span> 
+  <span style="color:#a6e22e">mutate</span>(term <span style="color:#f92672">=</span> <span style="color:#a6e22e">fct_reorder</span>(term, estimate))
+
+<span style="color:#a6e22e">ggplot</span>(estimations, <span style="color:#a6e22e">aes</span>(estimate, term, 
+                        color <span style="color:#f92672">=</span> conf.low <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;</span> conf.high <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_point</span>() <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">geom_errorbar</span>(<span style="color:#a6e22e">aes</span>(xmin <span style="color:#f92672">=</span> conf.low, xmax <span style="color:#f92672">=</span> conf.high)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">scale_color_manual</span>(values <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;red&#34;</span>, <span style="color:#e6db74">&#34;black&#34;</span>),
+                     labels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Sem significância&#34;</span>, <span style="color:#e6db74">&#34;Com significância&#34;</span>)) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">labs</span>(x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Estimativa&#34;</span>,
+       y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+       color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+       title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Análise da significância de cada estimador&#34;</span>)
+</code></pre></div><p><img src="/Capacitacoes/Econometria/Econometria_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#pacotes-utilizados-para-a-regressão-linear">Pacotes utilizados para a regressão linear</a></li>
+        <li><a href="#base-utilizada">Base utilizada</a></li>
+        <li><a href="#execução-da-regressão-linear">Execução da regressão linear</a>
+          <ul>
+            <li><a href="#resultado">Resultado:</a></li>
+            <li><a href="#adaptação-ao-tidyverse">Adaptação ao tidyverse</a></li>
+            <li><a href="#outras-formas-funcionais">Outras formas funcionais</a></li>
+            <li><a href="#interação">Interação</a></li>
+          </ul>
+        </li>
+        <li><a href="#validando-as-suposições">Validando as suposições</a>
+          <ul>
+            <li><a href="#homocedasticidade">Homocedasticidade</a></li>
+            <li><a href="#normalidade-dos-resíduos">Normalidade dos resíduos</a></li>
+          </ul>
+        </li>
+        <li><a href="#correção-de-erros-nas-suposições">Correção de erros nas suposições</a>
+          <ul>
+            <li><a href="#lidando-com-variáveis-endógenas">Lidando com variáveis endógenas</a></li>
+            <li><a href="#lidando-com-a-heterocedasticidade">Lidando com a heterocedasticidade</a></li>
+          </ul>
+        </li>
+        <li><a href="#visualização-do-modelo">Visualização do modelo</a>
+          <ul>
+            <li><a href="#regressão-linear-simples">Regressão linear simples</a></li>
+            <li><a href="#distribuição-das-amostras">Distribuição das amostras</a></li>
+            <li><a href="#dispersão-dos-resíduos-por-variável">Dispersão dos resíduos por variável</a></li>
+            <li><a href="#distribuição-dos-resíduos">Distribuição dos resíduos</a></li>
+            <li><a href="#influênciaconfiança-dos-estimadores">Influência/Confiança dos estimadores</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
