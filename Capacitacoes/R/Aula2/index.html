@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" dir=>
+
+<head>
+  <meta name="generator" content="Hugo 0.80.0" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Expressões RegularesResumo:Coringa: .
+Âncoras: ^ $
+Especiais: Grupos: [abc] [^abc]
+Alternativas: (ba|ca)
+Quantificadores: ?, &#43;, *, {n,m}, {n,m}? (lazy matching)
+Agrupamentos: ( )
+Backreference: (..)\\1
+Puxando o Tidyverselibrary(tidyverse)## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.">
+<meta name="theme-color" content="#FFFFFF"><meta property="og:title" content="Aula2" />
+<meta property="og:description" content="Expressões RegularesResumo:Coringa: .
+Âncoras: ^ $
+Especiais: Grupos: [abc] [^abc]
+Alternativas: (ba|ca)
+Quantificadores: ?, &#43;, *, {n,m}, {n,m}? (lazy matching)
+Agrupamentos: ( )
+Backreference: (..)\\1
+Puxando o Tidyverselibrary(tidyverse)## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gustavobsales.github.io/Capacitacoes/R/Aula2/" />
+
+<title>Aula2 | Insper Data</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.134b70e5316650a530cb42e4e8630b2a01d532bebfc0337028211175336e4806.css" integrity="sha256-E0tw5TFmUKUwy0Lk6GMLKgHVMr6/wDNwKCERdTNuSAY=">
+<script defer src="/en.search.min.47a3565e75be08822b47f748b3813c41b1d7c1f0497ef009063998c043f76f1a.js" integrity="sha256-R6NWXnW&#43;CIIrR/dIs4E8QbHXwfBJfvAJBjmYwEP3bxo="></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body dir=>
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      
+  <nav>
+<h2 class="book-brand">
+  <a href="/"><img src="/logo.png" alt="Logo" /><span>Insper Data</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <ul>
+<li><strong>Capacitações</strong>
+<ul>
+<li><a href="/docs/example/table-of-contents/">R</a>
+<ul>
+<li><a href="/Capacitacoes/R/Aula1/">ggplot</a></li>
+<li><a href="/docs/example/table-of-contents/with-toc/">dplyr</a></li>
+</ul>
+</li>
+<li><a href="/docs/example/table-of-contents/">Python</a>
+<ul>
+<li><a href="/docs/example/table-of-contents/with-toc/">Listas</a></li>
+<li><a href="/docs/example/table-of-contents/with-toc/">Funções</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br /></p>
+<ul>
+<li><strong>Projetos</strong></li>
+<li><a href="/docs/shortcodes/buttons/">Buttons</a></li>
+<li><a href="/docs/shortcodes/columns/">Columns</a></li>
+<li><a href="/docs/shortcodes/expand/">Expand</a></li>
+<li><a href="/docs/shortcodes/hints/">Hints</a></li>
+<li><a href="/docs/shortcodes/katex/">Katex</a></li>
+<li><a href="/docs/shortcodes/mermaid/">Mermaid</a></li>
+<li><a href="/docs/shortcodes/tabs/">Tabs</a>
+<br /></li>
+</ul>
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="https://github.com/Insper-Data" target="_blank" rel="noopener">
+        Github
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://www.instagram.com/insperdata" target="_blank" rel="noopener">
+        Instagram
+      </a>
+  </li>
+  
+  <li>
+    <a href="https://twitter.com/DataInsper" target="_blank" rel="noopener">
+        Twitter
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script>
+
+
+ 
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Aula2</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown">
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<link href="/rmarkdown-libs/str_view/str_view.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/str_view-binding/str_view.js"></script>
+
+
+<div id="expressões-regulares" class="section level1">
+<h1>Expressões Regulares</h1>
+<div id="resumo" class="section level2">
+<h2>Resumo:</h2>
+<p>Coringa: .</p>
+<p>Âncoras: ^ $</p>
+<p>Especiais: </p>
+<p>Grupos: [abc] [^abc]</p>
+<p>Alternativas: (ba|ca)</p>
+<p>Quantificadores: ?, +, *, {n,m}, {n,m}? (lazy matching)</p>
+<p>Agrupamentos: ( )</p>
+<p>Backreference: (..)\\1</p>
+</div>
+<div id="puxando-o-tidyverse" class="section level2">
+<h2>Puxando o Tidyverse</h2>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(stringi)</code></pre>
+<pre><code>## Warning: package &#39;stringi&#39; was built under R version 4.0.3</code></pre>
+</div>
+<div id="ideias-básicas-relacionadas-a-strings-cadeias-de-caracteres" class="section level2">
+<h2>Ideias básicas relacionadas a “strings” (cadeias de caracteres)</h2>
+<p>Preferencialmente usaremos aspas ("" ao invés do apóstrofo ’’)</p>
+<pre class="r"><code>string1 &lt;- &quot;Uma string é uma cadeia de caracteres&quot;
+cat(string1)</code></pre>
+<pre><code>## Uma string é uma cadeia de caracteres</code></pre>
+<pre class="r"><code>string2 &lt;- &#39;Exemplo de &quot;aspas&quot; dentro de uma string&#39;
+cat(string2)</code></pre>
+<pre><code>## Exemplo de &quot;aspas&quot; dentro de uma string</code></pre>
+<pre class="r"><code>string3 &lt;- &quot;Exemplo de aspas \&quot;dentro\&quot; de uma string&quot;
+cat(string3)</code></pre>
+<pre><code>## Exemplo de aspas &quot;dentro&quot; de uma string</code></pre>
+<pre class="r"><code>x &lt;- &quot;\u00b5&quot; # UNICODE
+cat(x)</code></pre>
+<pre><code>## µ</code></pre>
+</div>
+<div id="tamanhos-de-strings" class="section level2">
+<h2>Tamanhos de strings</h2>
+<pre class="r"><code>x &lt;- c(&quot;a&quot;, &quot;R for Data Science&quot;, NA)
+
+str_length(x) # retorna o tamanho de cada string</code></pre>
+<pre><code>## [1]  1 18 NA</code></pre>
+<pre class="r"><code>length(x) # retorna o tamanho do vetor</code></pre>
+<pre><code>## [1] 3</code></pre>
+</div>
+<div id="combinando-strings" class="section level2">
+<h2>Combinando strings</h2>
+<pre class="r"><code>str_c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;) # concatena strings</code></pre>
+<pre><code>## [1] &quot;xyz&quot;</code></pre>
+<pre class="r"><code>str_c(&quot;x&quot;, &quot;y&quot;, &quot;z&quot;, sep = &quot; : &quot;)</code></pre>
+<pre><code>## [1] &quot;x : y : z&quot;</code></pre>
+<pre class="r"><code>x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+y &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+str_c(x, y) # concatena de forma vetorizada</code></pre>
+<pre><code>## [1] &quot;aA&quot; &quot;bB&quot; &quot;cC&quot;</code></pre>
+<pre class="r"><code>str_c(x, y, sep = &quot; - &quot;)</code></pre>
+<pre><code>## [1] &quot;a - A&quot; &quot;b - B&quot; &quot;c - C&quot;</code></pre>
+<pre class="r"><code>str_c(x, y, sep = &quot; - &quot;, collapse = &quot; | &quot;) # junta todos os vetores em uma string</code></pre>
+<pre><code>## [1] &quot;a - A | b - B | c - C&quot;</code></pre>
+<pre class="r"><code>x &lt;- c(&quot;a&quot;, NA, &quot;c&quot;)
+y &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;)
+str_c(x, y, sep = &quot; - &quot;)</code></pre>
+<pre><code>## [1] &quot;a - A&quot; NA      &quot;c - C&quot;</code></pre>
+<pre class="r"><code>str_c(str_replace_na(x), y, sep = &quot; - &quot;) # substitui o valor NA pela string &quot;NA&quot;</code></pre>
+<pre><code>## [1] &quot;a - A&quot;  &quot;NA - B&quot; &quot;c - C&quot;</code></pre>
+</div>
+<div id="substrings" class="section level2">
+<h2>Substrings</h2>
+<pre class="r"><code>x &lt;- c(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Pear&quot;)
+str_sub(x, 1, 3)</code></pre>
+<pre><code>## [1] &quot;App&quot; &quot;Ban&quot; &quot;Pea&quot;</code></pre>
+<pre class="r"><code>str_sub(x, 1, 3) &lt;- &quot;***&quot; # substitui as primeiras letras
+x</code></pre>
+<pre><code>## [1] &quot;***le&quot;  &quot;***ana&quot; &quot;***r&quot;</code></pre>
+</div>
+</div>
+<div id="padrões-via-expressões-regulares" class="section level1">
+<h1>Padrões via Expressões Regulares</h1>
+<pre class="r"><code>x &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;)
+str_view(x, &quot;an&quot;) # ajuda a estudar as expressões regulares</code></pre>
+<div id="htmlwidget-1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="coringa-." class="section level2">
+<h2>Coringa: .</h2>
+<p>. corresponde a qualquer caractere, com exceção da quebra de linha</p>
+<pre class="r"><code>str_view(x, &quot;.a.&quot;)</code></pre>
+<div id="htmlwidget-2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>distinção de coringa e “.” –&gt; \.</p>
+<pre class="r"><code>str_view(c(&quot;.bc&quot;, &quot;a.c&quot;, &quot;ab.&quot;), &quot;\\.&quot;)</code></pre>
+<div id="htmlwidget-3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"html":"<ul>\n  <li><span class='match'>.<\/span>bc<\/li>\n  <li>a<span class='match'>.<\/span>c<\/li>\n  <li>ab<span class='match'>.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="âncoras-para-começo-e-para-o-final-da-string" class="section level2">
+<h2>Âncoras: ^ para começo e $ para o final da string</h2>
+<pre class="r"><code>str_view(x, &quot;^a&quot;) # indica que o caractere deve estar no começo da string</code></pre>
+<div id="htmlwidget-4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"html":"<ul>\n  <li><span class='match'>a<\/span>pple<\/li>\n  <li>banana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>str_view(x, &quot;r$&quot;) # indica que o caractere deve estar no final da string</code></pre>
+<div id="htmlwidget-5" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>banana<\/li>\n  <li>pea<span class='match'>r<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>O tidyverse tem uma base com 1000 palavras para aprendizado!</p>
+<pre class="r"><code># stringr::words
+
+head(words, 100)</code></pre>
+<pre><code>##   [1] &quot;a&quot;           &quot;able&quot;        &quot;about&quot;       &quot;absolute&quot;    &quot;accept&quot;     
+##   [6] &quot;account&quot;     &quot;achieve&quot;     &quot;across&quot;      &quot;act&quot;         &quot;active&quot;     
+##  [11] &quot;actual&quot;      &quot;add&quot;         &quot;address&quot;     &quot;admit&quot;       &quot;advertise&quot;  
+##  [16] &quot;affect&quot;      &quot;afford&quot;      &quot;after&quot;       &quot;afternoon&quot;   &quot;again&quot;      
+##  [21] &quot;against&quot;     &quot;age&quot;         &quot;agent&quot;       &quot;ago&quot;         &quot;agree&quot;      
+##  [26] &quot;air&quot;         &quot;all&quot;         &quot;allow&quot;       &quot;almost&quot;      &quot;along&quot;      
+##  [31] &quot;already&quot;     &quot;alright&quot;     &quot;also&quot;        &quot;although&quot;    &quot;always&quot;     
+##  [36] &quot;america&quot;     &quot;amount&quot;      &quot;and&quot;         &quot;another&quot;     &quot;answer&quot;     
+##  [41] &quot;any&quot;         &quot;apart&quot;       &quot;apparent&quot;    &quot;appear&quot;      &quot;apply&quot;      
+##  [46] &quot;appoint&quot;     &quot;approach&quot;    &quot;appropriate&quot; &quot;area&quot;        &quot;argue&quot;      
+##  [51] &quot;arm&quot;         &quot;around&quot;      &quot;arrange&quot;     &quot;art&quot;         &quot;as&quot;         
+##  [56] &quot;ask&quot;         &quot;associate&quot;   &quot;assume&quot;      &quot;at&quot;          &quot;attend&quot;     
+##  [61] &quot;authority&quot;   &quot;available&quot;   &quot;aware&quot;       &quot;away&quot;        &quot;awful&quot;      
+##  [66] &quot;baby&quot;        &quot;back&quot;        &quot;bad&quot;         &quot;bag&quot;         &quot;balance&quot;    
+##  [71] &quot;ball&quot;        &quot;bank&quot;        &quot;bar&quot;         &quot;base&quot;        &quot;basis&quot;      
+##  [76] &quot;be&quot;          &quot;bear&quot;        &quot;beat&quot;        &quot;beauty&quot;      &quot;because&quot;    
+##  [81] &quot;become&quot;      &quot;bed&quot;         &quot;before&quot;      &quot;begin&quot;       &quot;behind&quot;     
+##  [86] &quot;believe&quot;     &quot;benefit&quot;     &quot;best&quot;        &quot;bet&quot;         &quot;between&quot;    
+##  [91] &quot;big&quot;         &quot;bill&quot;        &quot;birth&quot;       &quot;bit&quot;         &quot;black&quot;      
+##  [96] &quot;bloke&quot;       &quot;blood&quot;       &quot;blow&quot;        &quot;blue&quot;        &quot;board&quot;</code></pre>
+<pre class="r"><code>str_view(words, &quot;w$&quot;, match = TRUE) # só mostra as palavras com resultado</code></pre>
+<div id="htmlwidget-6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="especiais" class="section level2">
+<h2>Especiais:</h2>
+<p>Um único dígito = \d</p>
+<p>Um espaço, tab ou “newline” = \s</p>
+<p>Final de linha/quebra de linha = \n</p>
+<p>Grupos: [abc] = a, b ou c; [^abc] = qualquer coisa, menos a, b ou c</p>
+<pre class="r"><code># palavras que terminam com &quot;u&quot; ou com &quot;w&quot;
+
+str_view(words, &quot;[uw]$&quot;, match = TRUE)</code></pre>
+<div id="htmlwidget-7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7">{"x":{"html":"<ul>\n  <li>allo<span class='match'>w<\/span><\/li>\n  <li>blo<span class='match'>w<\/span><\/li>\n  <li>dra<span class='match'>w<\/span><\/li>\n  <li>fe<span class='match'>w<\/span><\/li>\n  <li>follo<span class='match'>w<\/span><\/li>\n  <li>gro<span class='match'>w<\/span><\/li>\n  <li>ho<span class='match'>w<\/span><\/li>\n  <li>kno<span class='match'>w<\/span><\/li>\n  <li>la<span class='match'>w<\/span><\/li>\n  <li>lo<span class='match'>w<\/span><\/li>\n  <li>ne<span class='match'>w<\/span><\/li>\n  <li>no<span class='match'>w<\/span><\/li>\n  <li>sho<span class='match'>w<\/span><\/li>\n  <li>slo<span class='match'>w<\/span><\/li>\n  <li>tho<span class='match'>u<\/span><\/li>\n  <li>thro<span class='match'>w<\/span><\/li>\n  <li>tomorro<span class='match'>w<\/span><\/li>\n  <li>vie<span class='match'>w<\/span><\/li>\n  <li>windo<span class='match'>w<\/span><\/li>\n  <li>yo<span class='match'>u<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>Alternativas com ( | )</p>
+<pre class="r"><code>x &lt;- c(&quot;amor&quot;, &quot;casa&quot;, &quot;amar&quot;, &quot;ame&quot;)
+
+str_view(x, &quot;am(a|o|e)&quot;)</code></pre>
+<div id="htmlwidget-8" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8">{"x":{"html":"<ul>\n  <li><span class='match'>amo<\/span>r<\/li>\n  <li>casa<\/li>\n  <li><span class='match'>ama<\/span>r<\/li>\n  <li><span class='match'>ame<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>repetição (quantificadores)</p>
+<p>? = 0 ou 1; + = 1 ou mais; * = 0 ou mais</p>
+<pre class="r"><code>x &lt;- c(&quot;XXXXYZ&quot;, &quot;XXYZZ&quot;, &quot;XXXZZZ&quot;, &quot;XXYY&quot;)
+str_view(x, &quot;X+YZ+&quot;)</code></pre>
+<div id="htmlwidget-9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>str_view(x, &quot;X+Y?Z&quot;)</code></pre>
+<div id="htmlwidget-10" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-10">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZ<\/span>Z<\/li>\n  <li><span class='match'>XXXZ<\/span>ZZ<\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>str_view(x, &quot;X+Y+Z*&quot;)</code></pre>
+<div id="htmlwidget-11" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11">{"x":{"html":"<ul>\n  <li><span class='match'>XXXXYZ<\/span><\/li>\n  <li><span class='match'>XXYZZ<\/span><\/li>\n  <li>XXXZZZ<\/li>\n  <li><span class='match'>XXYY<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>Quantificadores mais precisos:</p>
+<p>{n} = exatamente n</p>
+<p>{n,} = n ou mais</p>
+<p>{,m} = no máximo m</p>
+<p>{n,m} = entre n e m</p>
+<pre class="r"><code>str_view(x, &quot;X{2,3}Y?Z{3}&quot;)</code></pre>
+<div id="htmlwidget-12" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-12">{"x":{"html":"<ul>\n  <li>XXXXYZ<\/li>\n  <li>XXYZZ<\/li>\n  <li><span class='match'>XXXZZZ<\/span><\/li>\n  <li>XXYY<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>Avançado: lazy matching com {n,m}?</p>
+<pre class="r"><code>str_view(&quot;aaaaa&quot;, &quot;a{2,5}&quot;)</code></pre>
+<div id="htmlwidget-13" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13">{"x":{"html":"<ul>\n  <li><span class='match'>aaaaa<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>str_view(&quot;aaaaa&quot;, &quot;a{2,5}?&quot;) # parar no menor valor</code></pre>
+<div id="htmlwidget-14" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14">{"x":{"html":"<ul>\n  <li><span class='match'>aa<\/span>aaa<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>Agrupamentos e backreferences</p>
+<pre class="r"><code>head(fruit)</code></pre>
+<pre><code>## [1] &quot;apple&quot;       &quot;apricot&quot;     &quot;avocado&quot;     &quot;banana&quot;      &quot;bell pepper&quot;
+## [6] &quot;bilberry&quot;</code></pre>
+<pre class="r"><code>str_view(fruit, &quot;(..)\\1&quot;, match = TRUE) # dois caracteres quaisquer repetidos duas vezes</code></pre>
+<div id="htmlwidget-15" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-15">{"x":{"html":"<ul>\n  <li>b<span class='match'>anan<\/span>a<\/li>\n  <li><span class='match'>coco<\/span>nut<\/li>\n  <li><span class='match'>cucu<\/span>mber<\/li>\n  <li><span class='match'>juju<\/span>be<\/li>\n  <li><span class='match'>papa<\/span>ya<\/li>\n  <li>s<span class='match'>alal<\/span> berry<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p>Ferramenta: quais strings casam com o padrão?</p>
+<pre class="r"><code>x &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;pear&quot;)
+str_detect(x, &quot;e&quot;) # retorna fator de valores lógicos indicando se a string contém &quot;e&quot;</code></pre>
+<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+<pre class="r"><code>str_detect(x, &quot;e$&quot;)</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>str_detect(x, &quot;(.)\\1&quot;)</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>sum(str_detect(words, &quot;^y&quot;))</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code>sum(str_detect(words, &quot;(.)\\1&quot;))</code></pre>
+<pre><code>## [1] 157</code></pre>
+<pre class="r"><code>sum(str_detect(words, &quot;([^aeiou])\\1[aeiou]&quot;))</code></pre>
+<pre><code>## [1] 56</code></pre>
+<p>Extrair as palavras que começam com “e” ou “y” e terminam com “t”</p>
+<pre class="r"><code>str_subset(words, &quot;^[ey].*t$&quot;)</code></pre>
+<pre><code>##  [1] &quot;east&quot;        &quot;eat&quot;         &quot;effect&quot;      &quot;eight&quot;       &quot;elect&quot;      
+##  [6] &quot;environment&quot; &quot;exact&quot;       &quot;except&quot;      &quot;exist&quot;       &quot;expect&quot;     
+## [11] &quot;yet&quot;</code></pre>
+<pre class="r"><code>str_subset(words, &quot;([^aeiou])\\1[aeiou]&quot;)</code></pre>
+<pre><code>##  [1] &quot;accept&quot;      &quot;account&quot;     &quot;affect&quot;      &quot;afford&quot;      &quot;allow&quot;      
+##  [6] &quot;apparent&quot;    &quot;appear&quot;      &quot;appoint&quot;     &quot;arrange&quot;     &quot;associate&quot;  
+## [11] &quot;assume&quot;      &quot;attend&quot;      &quot;bottom&quot;      &quot;brilliant&quot;   &quot;coffee&quot;     
+## [16] &quot;colleague&quot;   &quot;collect&quot;     &quot;college&quot;     &quot;comment&quot;     &quot;commit&quot;     
+## [21] &quot;committee&quot;   &quot;common&quot;      &quot;community&quot;   &quot;correct&quot;     &quot;current&quot;    
+## [26] &quot;difference&quot;  &quot;difficult&quot;   &quot;dinner&quot;      &quot;effect&quot;      &quot;follow&quot;     
+## [31] &quot;happen&quot;      &quot;hullo&quot;       &quot;issue&quot;       &quot;letter&quot;      &quot;matter&quot;     
+## [36] &quot;million&quot;     &quot;necessary&quot;   &quot;occasion&quot;    &quot;offer&quot;       &quot;office&quot;     
+## [41] &quot;opportunity&quot; &quot;oppose&quot;      &quot;possible&quot;    &quot;pressure&quot;    &quot;programme&quot;  
+## [46] &quot;recommend&quot;   &quot;succeed&quot;     &quot;sudden&quot;      &quot;suggest&quot;     &quot;summer&quot;     
+## [51] &quot;support&quot;     &quot;suppose&quot;     &quot;terrible&quot;    &quot;tomorrow&quot;    &quot;traffic&quot;    
+## [56] &quot;village&quot;</code></pre>
+<p>Filter strings</p>
+<pre class="r"><code>tb &lt;- tibble(word = words, pos = seq_along(words))
+
+tb %&gt;% 
+  filter(str_detect(word, &quot;^[ey].*t$&quot;))</code></pre>
+<pre><code>## # A tibble: 11 x 2
+##    word          pos
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 east          254
+##  2 eat           256
+##  3 effect        259
+##  4 eight         261
+##  5 elect         263
+##  6 environment   275
+##  7 exact         284
+##  8 except        286
+##  9 exist         289
+## 10 expect        290
+## 11 yet           978</code></pre>
+<p>Número de ocorrências de uma letra</p>
+<pre class="r"><code>str_count(x, &quot;a&quot;)</code></pre>
+<pre><code>## [1] 1 3 1</code></pre>
+<pre class="r"><code>tb %&gt;% 
+  mutate(vowels = str_count(word, &quot;[aeiou]&quot;),
+         consonants = str_count(word, &quot;[^aeiou]&quot;))</code></pre>
+<pre><code>## # A tibble: 980 x 4
+##    word       pos vowels consonants
+##    &lt;chr&gt;    &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+##  1 a            1      1          0
+##  2 able         2      2          2
+##  3 about        3      3          2
+##  4 absolute     4      4          4
+##  5 accept       5      2          4
+##  6 account      6      3          4
+##  7 achieve      7      4          3
+##  8 across       8      2          4
+##  9 act          9      1          2
+## 10 active      10      3          3
+## # ... with 970 more rows</code></pre>
+<p>Ferramenta: como extrair os casamentos em cada string?</p>
+<pre class="r"><code>head(sentences)</code></pre>
+<pre><code>## [1] &quot;The birch canoe slid on the smooth planks.&quot; 
+## [2] &quot;Glue the sheet to the dark blue background.&quot;
+## [3] &quot;It&#39;s easy to tell the depth of a well.&quot;     
+## [4] &quot;These days a chicken leg is a rare dish.&quot;   
+## [5] &quot;Rice is often served in round bowls.&quot;       
+## [6] &quot;The juice of lemons makes fine punch.&quot;</code></pre>
+<pre class="r"><code>has_my_colors &lt;- str_subset(sentences, &quot; (red|green|blue) &quot;)
+head(has_my_colors)</code></pre>
+<pre><code>## [1] &quot;Glue the sheet to the dark blue background.&quot;   
+## [2] &quot;Two blue fish swam in the tank.&quot;               
+## [3] &quot;A wisp of cloud hung in the blue air.&quot;         
+## [4] &quot;The spot on the blotter was made by green ink.&quot;
+## [5] &quot;The sofa cushion is red and of light weight.&quot;  
+## [6] &quot;A blue crane is a tall wading bird.&quot;</code></pre>
+<pre class="r"><code>matches &lt;- str_extract(has_my_colors, &quot; (red|green|blue) &quot;) %&gt;% 
+  str_trim()
+head(matches)</code></pre>
+<pre><code>## [1] &quot;blue&quot;  &quot;blue&quot;  &quot;blue&quot;  &quot;green&quot; &quot;red&quot;   &quot;blue&quot;</code></pre>
+<p>A primeira palavra de cada sentença</p>
+<pre class="r"><code>str_extract(sentences, &quot;^[^ ]+&quot;)</code></pre>
+<pre><code>##   [1] &quot;The&quot;        &quot;Glue&quot;       &quot;It&#39;s&quot;       &quot;These&quot;      &quot;Rice&quot;      
+##   [6] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Four&quot;       &quot;Large&quot;     
+##  [11] &quot;The&quot;        &quot;A&quot;          &quot;The&quot;        &quot;Kick&quot;       &quot;Help&quot;      
+##  [16] &quot;A&quot;          &quot;Smoky&quot;      &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+##  [21] &quot;The&quot;        &quot;The&quot;        &quot;Press&quot;      &quot;The&quot;        &quot;The&quot;       
+##  [26] &quot;Two&quot;        &quot;Her&quot;        &quot;The&quot;        &quot;It&quot;         &quot;Read&quot;      
+##  [31] &quot;Hoist&quot;      &quot;Take&quot;       &quot;Note&quot;       &quot;Wipe&quot;       &quot;Mend&quot;      
+##  [36] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;What&quot;      
+##  [41] &quot;A&quot;          &quot;The&quot;        &quot;Sickness&quot;   &quot;The&quot;        &quot;The&quot;       
+##  [46] &quot;Lift&quot;       &quot;The&quot;        &quot;Hop&quot;        &quot;The&quot;        &quot;Mesh&quot;      
+##  [51] &quot;The&quot;        &quot;The&quot;        &quot;Adding&quot;     &quot;The&quot;        &quot;A&quot;         
+##  [56] &quot;The&quot;        &quot;March&quot;      &quot;A&quot;          &quot;Place&quot;      &quot;Both&quot;      
+##  [61] &quot;We&quot;         &quot;Use&quot;        &quot;He&quot;         &quot;The&quot;        &quot;A&quot;         
+##  [66] &quot;Cars&quot;       &quot;The&quot;        &quot;This&quot;       &quot;The&quot;        &quot;Those&quot;     
+##  [71] &quot;A&quot;          &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+##  [76] &quot;A&quot;          &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+##  [81] &quot;The&quot;        &quot;See&quot;        &quot;There&quot;      &quot;The&quot;        &quot;The&quot;       
+##  [86] &quot;The&quot;        &quot;Cut&quot;        &quot;Men&quot;        &quot;Always&quot;     &quot;He&quot;        
+##  [91] &quot;The&quot;        &quot;A&quot;          &quot;A&quot;          &quot;The&quot;        &quot;The&quot;       
+##  [96] &quot;Bail&quot;       &quot;The&quot;        &quot;A&quot;          &quot;Ten&quot;        &quot;The&quot;       
+## [101] &quot;Oak&quot;        &quot;Cats&quot;       &quot;The&quot;        &quot;Open&quot;       &quot;Add&quot;       
+## [106] &quot;Thieves&quot;    &quot;The&quot;        &quot;Act&quot;        &quot;The&quot;        &quot;Move&quot;      
+## [111] &quot;The&quot;        &quot;Leaves&quot;     &quot;The&quot;        &quot;Split&quot;      &quot;Burn&quot;      
+## [116] &quot;He&quot;         &quot;Weave&quot;      &quot;Hemp&quot;       &quot;A&quot;          &quot;We&quot;        
+## [121] &quot;Type&quot;       &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Paste&quot;     
+## [126] &quot;The&quot;        &quot;It&quot;         &quot;The&quot;        &quot;Feel&quot;       &quot;The&quot;       
+## [131] &quot;A&quot;          &quot;He&quot;         &quot;Pluck&quot;      &quot;Two&quot;        &quot;The&quot;       
+## [136] &quot;Bring&quot;      &quot;Write&quot;      &quot;Clothes&quot;    &quot;We&quot;         &quot;Port&quot;      
+## [141] &quot;The&quot;        &quot;Guess&quot;      &quot;A&quot;          &quot;The&quot;        &quot;These&quot;     
+## [146] &quot;Pure&quot;       &quot;The&quot;        &quot;The&quot;        &quot;Mud&quot;        &quot;The&quot;       
+## [151] &quot;The&quot;        &quot;A&quot;          &quot;He&quot;         &quot;The&quot;        &quot;The&quot;       
+## [156] &quot;The&quot;        &quot;The&quot;        &quot;We&quot;         &quot;She&quot;        &quot;The&quot;       
+## [161] &quot;The&quot;        &quot;At&quot;         &quot;Drop&quot;       &quot;A&quot;          &quot;An&quot;        
+## [166] &quot;Wood&quot;       &quot;The&quot;        &quot;He&quot;         &quot;A&quot;          &quot;A&quot;         
+## [171] &quot;Steam&quot;      &quot;The&quot;        &quot;There&quot;      &quot;The&quot;        &quot;Torn&quot;      
+## [176] &quot;Sunday&quot;     &quot;The&quot;        &quot;The&quot;        &quot;They&quot;       &quot;Add&quot;       
+## [181] &quot;Acid&quot;       &quot;Fairy&quot;      &quot;Eight&quot;      &quot;The&quot;        &quot;A&quot;         
+## [186] &quot;Add&quot;        &quot;We&quot;         &quot;There&quot;      &quot;He&quot;         &quot;She&quot;       
+## [191] &quot;The&quot;        &quot;Corn&quot;       &quot;Where&quot;      &quot;The&quot;        &quot;Sell&quot;      
+## [196] &quot;The&quot;        &quot;The&quot;        &quot;Bring&quot;      &quot;They&quot;       &quot;Farmers&quot;   
+## [201] &quot;The&quot;        &quot;The&quot;        &quot;Float&quot;      &quot;A&quot;          &quot;A&quot;         
+## [206] &quot;The&quot;        &quot;After&quot;      &quot;The&quot;        &quot;He&quot;         &quot;Even&quot;      
+## [211] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Do&quot;         &quot;Lire&quot;      
+## [216] &quot;The&quot;        &quot;It&quot;         &quot;Write&quot;      &quot;The&quot;        &quot;The&quot;       
+## [221] &quot;A&quot;          &quot;Coax&quot;       &quot;Schools&quot;    &quot;The&quot;        &quot;They&quot;      
+## [226] &quot;The&quot;        &quot;The&quot;        &quot;Jazz&quot;       &quot;Rake&quot;       &quot;Slash&quot;     
+## [231] &quot;Try&quot;        &quot;They&quot;       &quot;He&quot;         &quot;They&quot;       &quot;The&quot;       
+## [236] &quot;Whitings&quot;   &quot;Some&quot;       &quot;Jerk&quot;       &quot;A&quot;          &quot;Madam,&quot;    
+## [241] &quot;On&quot;         &quot;The&quot;        &quot;This&quot;       &quot;Add&quot;        &quot;The&quot;       
+## [246] &quot;The&quot;        &quot;The&quot;        &quot;To&quot;         &quot;The&quot;        &quot;Jump&quot;      
+## [251] &quot;Yell&quot;       &quot;They&quot;       &quot;Both&quot;       &quot;In&quot;         &quot;The&quot;       
+## [256] &quot;The&quot;        &quot;Ducks&quot;      &quot;Fruit&quot;      &quot;These&quot;      &quot;Canned&quot;    
+## [261] &quot;The&quot;        &quot;Carry&quot;      &quot;The&quot;        &quot;We&quot;         &quot;Gray&quot;      
+## [266] &quot;The&quot;        &quot;High&quot;       &quot;Tea&quot;        &quot;A&quot;          &quot;A&quot;         
+## [271] &quot;The&quot;        &quot;Find&quot;       &quot;Cut&quot;        &quot;The&quot;        &quot;Look&quot;      
+## [276] &quot;The&quot;        &quot;Nine&quot;       &quot;The&quot;        &quot;The&quot;        &quot;Soak&quot;      
+## [281] &quot;The&quot;        &quot;A&quot;          &quot;All&quot;        &quot;ii&quot;         &quot;To&quot;        
+## [286] &quot;Shape&quot;      &quot;The&quot;        &quot;Hedge&quot;      &quot;Quench&quot;     &quot;Tight&quot;     
+## [291] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Watch&quot;      &quot;The&quot;       
+## [296] &quot;The&quot;        &quot;Write&quot;      &quot;His&quot;        &quot;The&quot;        &quot;Tin&quot;       
+## [301] &quot;Slide&quot;      &quot;The&quot;        &quot;The&quot;        &quot;Pink&quot;       &quot;She&quot;       
+## [306] &quot;The&quot;        &quot;It&quot;         &quot;Let&#39;s&quot;      &quot;The&quot;        &quot;The&quot;       
+## [311] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Paper&quot;      &quot;The&quot;       
+## [316] &quot;The&quot;        &quot;Screw&quot;      &quot;Time&quot;       &quot;The&quot;        &quot;Men&quot;       
+## [321] &quot;Fill&quot;       &quot;He&quot;         &quot;We&quot;         &quot;Pack&quot;       &quot;The&quot;       
+## [326] &quot;The&quot;        &quot;Boards&quot;     &quot;The&quot;        &quot;Glass&quot;      &quot;Bathe&quot;     
+## [331] &quot;Nine&quot;       &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Pages&quot;     
+## [336] &quot;Try&quot;        &quot;Women&quot;      &quot;The&quot;        &quot;A&quot;          &quot;Code&quot;      
+## [341] &quot;Most&quot;       &quot;He&quot;         &quot;The&quot;        &quot;Mince&quot;      &quot;The&quot;       
+## [346] &quot;Let&quot;        &quot;A&quot;          &quot;A&quot;          &quot;Tack&quot;       &quot;Next&quot;      
+## [351] &quot;Pour&quot;       &quot;Each&quot;       &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+## [356] &quot;Just&quot;       &quot;A&quot;          &quot;Our&quot;        &quot;Brass&quot;      &quot;It&quot;        
+## [361] &quot;Feed&quot;       &quot;The&quot;        &quot;He&quot;         &quot;The&quot;        &quot;Plead&quot;     
+## [366] &quot;Better&quot;     &quot;This&quot;       &quot;The&quot;        &quot;He&quot;         &quot;Tend&quot;      
+## [371] &quot;It&quot;         &quot;Mark&quot;       &quot;Take&quot;       &quot;The&quot;        &quot;North&quot;     
+## [376] &quot;He&quot;         &quot;Go&quot;         &quot;A&quot;          &quot;Soap&quot;       &quot;That&quot;      
+## [381] &quot;He&quot;         &quot;A&quot;          &quot;Grape&quot;      &quot;Roads&quot;      &quot;Fake&quot;      
+## [386] &quot;The&quot;        &quot;Smoke&quot;      &quot;Serve&quot;      &quot;Much&quot;       &quot;The&quot;       
+## [391] &quot;Heave&quot;      &quot;A&quot;          &quot;It&#39;s&quot;       &quot;His&quot;        &quot;The&quot;       
+## [396] &quot;The&quot;        &quot;It&quot;         &quot;Beef&quot;       &quot;Raise&quot;      &quot;The&quot;       
+## [401] &quot;A&quot;          &quot;Jerk&quot;       &quot;No&quot;         &quot;We&quot;         &quot;The&quot;       
+## [406] &quot;The&quot;        &quot;Three&quot;      &quot;The&quot;        &quot;No&quot;         &quot;Grace&quot;     
+## [411] &quot;Nudge&quot;      &quot;The&quot;        &quot;Once&quot;       &quot;A&quot;          &quot;Fasten&quot;    
+## [416] &quot;A&quot;          &quot;He&quot;         &quot;The&quot;        &quot;The&quot;        &quot;There&quot;     
+## [421] &quot;Seed&quot;       &quot;Draw&quot;       &quot;The&quot;        &quot;The&quot;        &quot;Hats&quot;      
+## [426] &quot;The&quot;        &quot;Beat&quot;       &quot;Say&quot;        &quot;The&quot;        &quot;Screen&quot;    
+## [431] &quot;This&quot;       &quot;The&quot;        &quot;He&quot;         &quot;These&quot;      &quot;The&quot;       
+## [436] &quot;Twist&quot;      &quot;The&quot;        &quot;The&quot;        &quot;Xew&quot;        &quot;The&quot;       
+## [441] &quot;They&quot;       &quot;The&quot;        &quot;A&quot;          &quot;Breakfast&quot;  &quot;Bottles&quot;   
+## [446] &quot;The&quot;        &quot;He&quot;         &quot;Drop&quot;       &quot;The&quot;        &quot;Throw&quot;     
+## [451] &quot;A&quot;          &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+## [456] &quot;Turn&quot;       &quot;The&quot;        &quot;The&quot;        &quot;To&quot;         &quot;The&quot;       
+## [461] &quot;The&quot;        &quot;Dispense&quot;   &quot;The&quot;        &quot;He&quot;         &quot;The&quot;       
+## [466] &quot;The&quot;        &quot;Fly&quot;        &quot;Thick&quot;      &quot;Birth&quot;      &quot;The&quot;       
+## [471] &quot;The&quot;        &quot;A&quot;          &quot;The&quot;        &quot;We&quot;         &quot;The&quot;       
+## [476] &quot;The&quot;        &quot;We&quot;         &quot;The&quot;        &quot;Five&quot;       &quot;A&quot;         
+## [481] &quot;The&quot;        &quot;Shut&quot;       &quot;The&quot;        &quot;Crack&quot;      &quot;He&quot;        
+## [486] &quot;Send&quot;       &quot;A&quot;          &quot;They&quot;       &quot;The&quot;        &quot;In&quot;        
+## [491] &quot;A&quot;          &quot;Oats&quot;       &quot;Their&quot;      &quot;The&quot;        &quot;There&quot;     
+## [496] &quot;Tuck&quot;       &quot;A&quot;          &quot;We&quot;         &quot;The&quot;        &quot;Take&quot;      
+## [501] &quot;Shake&quot;      &quot;She&quot;        &quot;The&quot;        &quot;The&quot;        &quot;We&quot;        
+## [506] &quot;Smile&quot;      &quot;A&quot;          &quot;The&quot;        &quot;Take&quot;       &quot;That&quot;      
+## [511] &quot;The&quot;        &quot;The&quot;        &quot;Ripe&quot;       &quot;A&quot;          &quot;The&quot;       
+## [516] &quot;The&quot;        &quot;The&quot;        &quot;This&quot;       &quot;She&quot;        &quot;The&quot;       
+## [521] &quot;Press&quot;      &quot;Neat&quot;       &quot;The&quot;        &quot;The&quot;        &quot;The&quot;       
+## [526] &quot;Shake&quot;      &quot;The&quot;        &quot;A&quot;          &quot;His&quot;        &quot;Flax&quot;      
+## [531] &quot;Hurdle&quot;     &quot;A&quot;          &quot;Even&quot;       &quot;Peep&quot;       &quot;The&quot;       
+## [536] &quot;Cheap&quot;      &quot;A&quot;          &quot;Flood&quot;      &quot;A&quot;          &quot;The&quot;       
+## [541] &quot;Those&quot;      &quot;He&quot;         &quot;Dill&quot;       &quot;Down&quot;       &quot;Either&quot;    
+## [546] &quot;The&quot;        &quot;If&quot;         &quot;At&quot;         &quot;Read&quot;       &quot;Fill&quot;      
+## [551] &quot;The&quot;        &quot;Clams&quot;      &quot;The&quot;        &quot;The&quot;        &quot;Breathe&quot;   
+## [556] &quot;It&quot;         &quot;A&quot;          &quot;A&quot;          &quot;A&quot;          &quot;A&quot;         
+## [561] &quot;Paint&quot;      &quot;The&quot;        &quot;Bribes&quot;     &quot;Trample&quot;    &quot;The&quot;       
+## [566] &quot;A&quot;          &quot;Footprints&quot; &quot;She&quot;        &quot;A&quot;          &quot;Prod&quot;      
+## [571] &quot;It&quot;         &quot;The&quot;        &quot;It&quot;         &quot;The&quot;        &quot;Wake&quot;      
+## [576] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Hold&quot;       &quot;Next&quot;      
+## [581] &quot;Every&quot;      &quot;He&quot;         &quot;They&quot;       &quot;Drive&quot;      &quot;Keep&quot;      
+## [586] &quot;Sever&quot;      &quot;Paper&quot;      &quot;Slide&quot;      &quot;Help&quot;       &quot;A&quot;         
+## [591] &quot;Stop&quot;       &quot;Jerk&quot;       &quot;Slidc&quot;      &quot;The&quot;        &quot;Light&quot;     
+## [596] &quot;Set&quot;        &quot;Dull&quot;       &quot;A&quot;          &quot;Get&quot;        &quot;Choose&quot;    
+## [601] &quot;A&quot;          &quot;He&quot;         &quot;There&quot;      &quot;The&quot;        &quot;Greet&quot;     
+## [606] &quot;When&quot;       &quot;Sweet&quot;      &quot;A&quot;          &quot;A&quot;          &quot;Lush&quot;      
+## [611] &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;Sit&quot;        &quot;A&quot;         
+## [616] &quot;The&quot;        &quot;Green&quot;      &quot;Tea&quot;        &quot;Pitch&quot;      &quot;The&quot;       
+## [621] &quot;The&quot;        &quot;The&quot;        &quot;A&quot;          &quot;The&quot;        &quot;She&quot;       
+## [626] &quot;The&quot;        &quot;Loop&quot;       &quot;Plead&quot;      &quot;Calves&quot;     &quot;Post&quot;      
+## [631] &quot;Tear&quot;       &quot;A&quot;          &quot;A&quot;          &quot;It&quot;         &quot;Crouch&quot;    
+## [636] &quot;Pack&quot;       &quot;The&quot;        &quot;Fine&quot;       &quot;Poached&quot;    &quot;Bad&quot;       
+## [641] &quot;Ship&quot;       &quot;Dimes&quot;      &quot;They&quot;       &quot;The&quot;        &quot;The&quot;       
+## [646] &quot;The&quot;        &quot;The&quot;        &quot;Pile&quot;       &quot;The&quot;        &quot;The&quot;       
+## [651] &quot;The&quot;        &quot;The&quot;        &quot;A&quot;          &quot;The&quot;        &quot;The&quot;       
+## [656] &quot;To&quot;         &quot;There&quot;      &quot;Cod&quot;        &quot;The&quot;        &quot;Dunk&quot;      
+## [661] &quot;Hang&quot;       &quot;Cap&quot;        &quot;The&quot;        &quot;Be&quot;         &quot;Pick&quot;      
+## [666] &quot;A&quot;          &quot;The&quot;        &quot;The&quot;        &quot;The&quot;        &quot;You&quot;       
+## [671] &quot;Dots&quot;       &quot;Put&quot;        &quot;The&quot;        &quot;The&quot;        &quot;See&quot;       
+## [676] &quot;Slide&quot;      &quot;Many&quot;       &quot;We&quot;         &quot;No&quot;         &quot;Dig&quot;       
+## [681] &quot;The&quot;        &quot;A&quot;          &quot;Green&quot;      &quot;A&quot;          &quot;The&quot;       
+## [686] &quot;A&quot;          &quot;The&quot;        &quot;The&quot;        &quot;Seven&quot;      &quot;Our&quot;       
+## [691] &quot;The&quot;        &quot;It&quot;         &quot;One&quot;        &quot;Take&quot;       &quot;The&quot;       
+## [696] &quot;The&quot;        &quot;The&quot;        &quot;Stop&quot;       &quot;The&quot;        &quot;The&quot;       
+## [701] &quot;Open&quot;       &quot;Fish&quot;       &quot;Dip&quot;        &quot;Will&quot;       &quot;The&quot;       
+## [706] &quot;The&quot;        &quot;The&quot;        &quot;He&quot;         &quot;Leave&quot;      &quot;The&quot;       
+## [711] &quot;A&quot;          &quot;The&quot;        &quot;She&quot;        &quot;A&quot;          &quot;Small&quot;     
+## [716] &quot;The&quot;        &quot;The&quot;        &quot;A&quot;          &quot;She&quot;        &quot;When&quot;</code></pre>
+<p>Artigo definido “the” ou indefinido “a” seguido de uma palavra</p>
+<pre class="r"><code>str_extract(sentences, &quot;(( the | a )[^ .,]+)&quot;)</code></pre>
+<pre><code>##   [1] &quot; the smooth&quot;    &quot; the sheet&quot;     &quot; the depth&quot;     &quot; a chicken&quot;    
+##   [5] NA               NA               &quot; the parked&quot;    NA              
+##   [9] NA               NA               &quot; the sun&quot;       NA              
+##  [13] &quot; the huge&quot;      &quot; the ball&quot;      &quot; the woman&quot;     &quot; the evening&quot;  
+##  [17] NA               &quot; the man&#39;s&quot;     &quot; the sea&quot;       &quot; the booth&quot;    
+##  [21] &quot; a hole&quot;        &quot; the bent&quot;      &quot; the pants&quot;     NA              
+##  [25] &quot; the view&quot;      &quot; the tank&quot;      NA               &quot; the tall&quot;     
+##  [29] &quot; the same&quot;      NA               &quot; the load&quot;      &quot; the winding&quot;  
+##  [33] &quot; the size&quot;      &quot; the grease&quot;    &quot; the coat&quot;      NA              
+##  [37] NA               NA               &quot; the bell&quot;      NA              
+##  [41] &quot; the state&quot;     &quot; the sharp&quot;     &quot; the third&quot;     &quot; the hot&quot;      
+##  [45] &quot; the cool&quot;      &quot; the square&quot;    &quot; the seven&quot;     &quot; the fence&quot;    
+##  [49] &quot; the drug&quot;      NA               &quot; the coat&quot;      &quot; the mouse&quot;    
+##  [53] NA               &quot; a flop&quot;        &quot; a tool&quot;        NA              
+##  [57] &quot; the soldiers&quot;  NA               &quot; a rosebush&quot;    &quot; the raging&quot;   
+##  [61] &quot; the slide&quot;     &quot; a pencil&quot;      &quot; the hardware&quot;  &quot; the third&quot;    
+##  [65] &quot; the field&quot;     NA               &quot; the floor&quot;     &quot; a grand&quot;      
+##  [69] &quot; the edge&quot;      &quot; the cue&quot;       &quot; the point&quot;     &quot; the sand&quot;     
+##  [73] &quot; the finished&quot;  &quot; a fight&quot;       NA               &quot; a nice&quot;       
+##  [77] &quot; the car&quot;       NA               &quot; a thin&quot;        NA              
+##  [81] &quot; the big&quot;       &quot; the cat&quot;       NA               NA              
+##  [85] NA               &quot; the fence&quot;     &quot; the pie&quot;       NA              
+##  [89] &quot; the barn&quot;      &quot; a limb&quot;        &quot; the street&quot;    &quot; the blue&quot;     
+##  [93] NA               &quot; the clear&quot;     NA               &quot; the boat&quot;     
+##  [97] NA               NA               NA               NA              
+## [101] NA               &quot; the other&quot;     NA               &quot; the crate&quot;    
+## [105] &quot; the sum&quot;       NA               NA               NA              
+## [109] &quot; the high&quot;      &quot; the vat&quot;       &quot; the pine&quot;      &quot; the fall&quot;     
+## [113] &quot; the wind&quot;      &quot; the log&quot;       &quot; the logs&quot;      NA              
+## [117] &quot; the carpet&quot;    &quot; a weed&quot;        NA               &quot; the simplest&quot; 
+## [121] NA               &quot; the less&quot;      &quot; the show&quot;      NA              
+## [125] &quot; the most&quot;      NA               &quot; a rusty&quot;       &quot; the farther&quot;  
+## [129] &quot; the heat&quot;      NA               &quot; a swim&quot;        &quot; the same&quot;     
+## [133] &quot; the bright&quot;    NA               &quot; the eyes&quot;      &quot; the wise&quot;     
+## [137] &quot; a fond&quot;        NA               &quot; a bad&quot;         &quot; a strong&quot;     
+## [141] &quot; the rusty&quot;     &quot; the results&quot;   NA               &quot; the right&quot;    
+## [145] &quot; a high&quot;        NA               &quot; a graceful&quot;    &quot; the blotter&quot;  
+## [149] &quot; the front&quot;     &quot; a hole&quot;        &quot; the tin&quot;       NA              
+## [153] &quot; a new&quot;         &quot; the couch&quot;     NA               NA              
+## [157] &quot; the crew&quot;      &quot; the coin&quot;      &quot; the torn&quot;      NA              
+## [161] &quot; the back&quot;      &quot; the air&quot;       &quot; the two&quot;       NA              
+## [165] &quot; the prize&quot;     NA               &quot; a dull&quot;        &quot; the skill&quot;    
+## [169] NA               &quot; the hot&quot;       &quot; the broken&quot;    &quot; the small&quot;    
+## [173] &quot; a sound&quot;       NA               &quot; the stone&quot;     &quot; the best&quot;     
+## [177] NA               NA               &quot; the ship&quot;      &quot; the store&#39;s&quot;  
+## [181] NA               NA               NA               &quot; the players&quot;  
+## [185] NA               &quot; the column&quot;    &quot; a good&quot;        &quot; the flood&quot;    
+## [189] &quot; a head&quot;        NA               &quot; a fig&quot;         &quot; a fire&quot;       
+## [193] &quot; the noise&quot;     NA               &quot; a buyer&quot;       &quot; the ice&quot;      
+## [197] &quot; the next&quot;      &quot; the third&quot;     NA               &quot; the oat&quot;      
+## [201] &quot; the attic&quot;     NA               &quot; the soap&quot;      &quot; a tall&quot;       
+## [205] NA               &quot; the rink&quot;      &quot; the dance&quot;     &quot; the new&quot;      
+## [209] &quot; the inn&quot;       &quot; the worst&quot;     NA               &quot; the second&quot;   
+## [213] &quot; the wall&quot;      &quot; a wooden&quot;      NA               NA              
+## [217] NA               NA               NA               &quot; the bank&quot;     
+## [221] NA               &quot; a young&quot;       NA               &quot; a steady&quot;     
+## [225] &quot; the axe&quot;       NA               &quot; a loud&quot;        NA              
+## [229] &quot; the rubbish&quot;   &quot; the gold&quot;      &quot; the court&quot;     NA              
+## [233] NA               &quot; the raft&quot;      NA               NA              
+## [237] NA               &quot; the rope&quot;      NA               &quot; the best&quot;     
+## [241] &quot; the islands&quot;   NA               &quot; the world&quot;     &quot; the egg&quot;      
+## [245] NA               NA               &quot; a bright&quot;      NA              
+## [249] NA               &quot; the fence&quot;     &quot; the curtain&quot;   &quot; the middle&quot;   
+## [253] &quot; the same&quot;      NA               NA               NA              
+## [257] &quot; a compass&quot;     NA               NA               NA              
+## [261] &quot; the front&quot;     &quot; the pail&quot;      &quot; the big&quot;       NA              
+## [265] NA               &quot; the empty&quot;     NA               &quot; the brown&quot;    
+## [269] NA               &quot; the hot-cross&quot; &quot; the field&quot;     &quot; the twin&quot;     
+## [273] &quot; the cord&quot;      &quot; the smuggled&quot;  &quot; the corner&quot;    &quot; the bond&quot;     
+## [277] &quot; the ruins&quot;     &quot; a mouldy&quot;      &quot; a pine&quot;        &quot; the cloth&quot;    
+## [281] NA               &quot; the swan&quot;      &quot; the screen&quot;    NA              
+## [285] &quot; the end&quot;       &quot; the clay&quot;      &quot; a smooth&quot;      NA              
+## [289] &quot; the crackers&quot;  NA               &quot; the high&quot;      &quot; a pierced&quot;    
+## [293] NA               &quot; the log&quot;       &quot; the stalk&quot;     NA              
+## [297] NA               NA               &quot; a brew&quot;        NA              
+## [301] &quot; the box&quot;       &quot; the window&quot;    &quot; the workmen&#39;s&quot; &quot; the breeze&quot;   
+## [305] &quot; a swan&quot;        &quot; the tire&quot;      &quot; the old&quot;       &quot; the last&quot;     
+## [309] NA               NA               NA               NA              
+## [313] &quot; a person&quot;      NA               &quot; the sleeping&quot;  &quot; the fire&quot;     
+## [317] &quot; the round&quot;     NA               NA               NA              
+## [321] &quot; the ink&quot;       &quot; a big&quot;         NA               &quot; the records&quot;  
+## [325] &quot; the snow&quot;      &quot; the sun&#39;s&quot;     NA               &quot; the wall&quot;     
+## [329] NA               &quot; the cool&quot;      NA               NA              
+## [333] NA               &quot; the dog&quot;       &quot; a book&quot;        &quot; the fine&quot;     
+## [337] &quot; the group&quot;     &quot; the central&quot;   &quot; the rough&quot;     NA              
+## [341] &quot; the new&quot;       &quot; the lathe&quot;     &quot; the pole&quot;      &quot; a dish&quot;       
+## [345] NA               NA               NA               &quot; the day&quot;      
+## [349] &quot; the strip&quot;     NA               &quot; the stew&quot;      NA              
+## [353] &quot; the woods&quot;     &quot; the road&quot;      &quot; the clear&quot;     NA              
+## [357] &quot; a king&#39;s&quot;      NA               NA               &quot; a good&quot;       
+## [361] &quot; the white&quot;     &quot; the stream&quot;    &quot; the lead&quot;      &quot; the lock&quot;     
+## [365] &quot; the council&quot;   NA               NA               &quot; the red&quot;      
+## [369] &quot; the ledge&quot;     &quot; the sheep&quot;     &quot; a lot&quot;         &quot; the spot&quot;     
+## [373] &quot; a fair&quot;        NA               NA               NA              
+## [377] NA               NA               NA               &quot; the game&quot;     
+## [381] &quot; a long&quot;        &quot; the strong&quot;    NA               NA              
+## [385] NA               &quot; the rain&quot;      NA               &quot; the hot&quot;      
+## [389] &quot; the story&quot;     &quot; the eastern&quot;   &quot; the line&quot;      NA              
+## [393] &quot; a dense&quot;       &quot; the knee&quot;      NA               &quot; the shaky&quot;    
+## [397] &quot; the odor&quot;      NA               &quot; the sail&quot;      NA              
+## [401] NA               &quot; the dart&quot;      NA               &quot; a new&quot;        
+## [405] &quot; the base&quot;      &quot; a dog&quot;         &quot; a dime&quot;        NA              
+## [409] NA               NA               NA               NA              
+## [413] &quot; the shore&quot;     &quot; the wall&quot;      NA               NA              
+## [417] &quot; the oath&quot;      &quot; the sill&quot;      &quot; the steel&quot;     &quot; a lag&quot;        
+## [421] &quot; the spring&quot;    &quot; the chart&quot;     NA               &quot; the crowd&quot;    
+## [425] NA               &quot; the wide&quot;      &quot; the dust&quot;      NA              
+## [429] NA               &quot; the porch&quot;     &quot; the finish&quot;    &quot; the deep&quot;     
+## [433] &quot; the dice&quot;      NA               &quot; the frail&quot;     &quot; the valve&quot;    
+## [437] &quot; the shoe&quot;      NA               NA               NA              
+## [441] &quot; the sausage&quot;   &quot; the rose&quot;      &quot; the colt&quot;      &quot; a hot&quot;        
+## [445] NA               &quot; a feather&quot;     &quot; the bike&quot;      &quot; the ashes&quot;    
+## [449] NA               &quot; the used&quot;      &quot; a neat&quot;        NA              
+## [453] &quot; the tall&quot;      NA               &quot; a thin&quot;        &quot; the lantern&quot;  
+## [457] &quot; the soft&quot;      &quot; the tenth&quot;     NA               &quot; a good&quot;       
+## [461] NA               &quot; a vest&quot;        NA               &quot; the figs&quot;     
+## [465] &quot; the door&quot;      &quot; the fire&quot;      NA               &quot; the print&quot;    
+## [469] &quot; the limits&quot;    NA               &quot; the high&quot;      NA              
+## [473] NA               NA               &quot; the old&quot;       &quot; the dark&quot;     
+## [477] NA               NA               &quot; a shaggy&quot;      &quot; the corner&quot;   
+## [481] NA               &quot; the hatch&quot;     NA               &quot; the walnut&quot;   
+## [485] &quot; the form&quot;      &quot; the stuff&quot;     &quot; the most&quot;      NA              
+## [489] NA               &quot; the rear&quot;      &quot; a blue&quot;        &quot; a food&quot;       
+## [493] NA               NA               NA               &quot; the sheet&quot;    
+## [497] &quot; the earth&quot;     NA               &quot; the tailor&quot;    &quot; a chance&quot;     
+## [501] &quot; the dust&quot;      NA               &quot; the stone&quot;     NA              
+## [505] &quot; the weather&quot;   NA               NA               &quot; a source&quot;     
+## [509] NA               &quot; the writer&quot;    NA               NA              
+## [513] &quot; a queen&#39;s&quot;     &quot; the round&quot;     NA               NA              
+## [517] &quot; a wild&quot;        NA               &quot; a white&quot;       &quot; the hot&quot;      
+## [521] &quot; the pedal&quot;     NA               &quot; the landing&quot;   &quot; the debt&quot;     
+## [525] &quot; the pearl&quot;     NA               &quot; the far&quot;       NA              
+## [529] NA               &quot; a fine&quot;        &quot; the pit&quot;       NA              
+## [533] &quot; a just&quot;        &quot; the tent&quot;      &quot; a slow&quot;        NA              
+## [537] NA               &quot; the mails&quot;     NA               NA              
+## [541] &quot; a strong&quot;      &quot; the top&quot;       NA               &quot; the way&quot;      
+## [545] NA               NA               NA               &quot; the alarm&quot;    
+## [549] &quot; the meter&quot;     &quot; the poor&quot;      NA               NA              
+## [553] NA               &quot; the edges&quot;     &quot; the piny&quot;      NA              
+## [557] NA               &quot; a frog&quot;        NA               &quot; the dam&quot;      
+## [561] &quot; the sockets&quot;   &quot; the dense&quot;     NA               &quot; the spark&quot;    
+## [565] &quot; the sword&quot;     &quot; the thin&quot;      &quot; the path&quot;      NA              
+## [569] &quot; the edge&quot;      &quot; the old&quot;       &quot; a band&quot;        &quot; the length&quot;   
+## [573] &quot; a mass&quot;        &quot; the package&quot;   &quot; the green&quot;     &quot; the brown&quot;    
+## [577] &quot; the high&quot;      NA               &quot; the hammer&quot;    &quot; the twelfth&quot;  
+## [581] NA               &quot; the gun&quot;       &quot; the public&quot;    &quot; the screw&quot;    
+## [585] &quot; the hatch&quot;     &quot; the twine&quot;     NA               &quot; the catch&quot;    
+## [589] &quot; the weak&quot;      NA               &quot; the boys&quot;      &quot; the cord&quot;     
+## [593] &quot; the tray&quot;      &quot; a stately&quot;     &quot; a swell&quot;       &quot; the piece&quot;    
+## [597] NA               NA               &quot; the trust&quot;     &quot; the high&quot;     
+## [601] NA               &quot; the tall&quot;      &quot; a strong&quot;      &quot; the park&quot;     
+## [605] &quot; the new&quot;       &quot; the frost&quot;     NA               &quot; the middle&quot;   
+## [609] &quot; a ten&quot;         &quot; the lofty&quot;     &quot; the school&quot;    &quot; the best&quot;     
+## [613] &quot; a brown&quot;       &quot; the perch&quot;     NA               NA              
+## [617] &quot; the northern&quot;  &quot; a sweet&quot;       &quot; the straw&quot;     &quot; the beck&quot;     
+## [621] &quot; the old&quot;       &quot; the thing&quot;     &quot; the most&quot;      NA              
+## [625] &quot; the street&quot;    &quot; the cruiser&quot;   &quot; the braid&quot;     &quot; the lawyer&quot;   
+## [629] NA               NA               &quot; a thin&quot;        &quot; a sleek&quot;      
+## [633] &quot; the left&quot;      &quot; the boy&quot;       &quot; the mark&quot;      &quot; the kits&quot;     
+## [637] &quot; the round&quot;     NA               NA               &quot; a door&quot;       
+## [641] NA               NA               &quot; the same&quot;      &quot; the west&quot;     
+## [645] NA               &quot; the tall&quot;      &quot; the horse&quot;     &quot; the coal&quot;     
+## [649] NA               NA               &quot; the far&quot;       &quot; a sharp&quot;      
+## [653] NA               &quot; the treadmill&quot; &quot; the contest&quot;   NA              
+## [657] &quot; a fine&quot;        &quot; the main&quot;      NA               &quot; the stale&quot;    
+## [661] NA               &quot; the jar&quot;       &quot; the boat&quot;      &quot; the lamp&quot;     
+## [665] &quot; a card&quot;        &quot; the dull&quot;      &quot; the plan&quot;      NA              
+## [669] NA               &quot; a cold&quot;        &quot; the black&quot;     &quot; the chart&quot;    
+## [673] NA               &quot; the dim&quot;       &quot; the player&quot;    &quot; the bill&quot;     
+## [677] &quot; the job&quot;       NA               &quot; the way&quot;       &quot; the earth&quot;    
+## [681] &quot; a drenching&quot;   NA               &quot; the punch&quot;     &quot; the moving&quot;   
+## [685] NA               &quot; the side&quot;      NA               &quot; the burnt&quot;    
+## [689] NA               NA               &quot; the sale&quot;      &quot; a bad&quot;        
+## [693] &quot; the board&quot;     &quot; the match&quot;     &quot; the contents&quot;  NA              
+## [697] &quot; the town&quot;      &quot; the hard&quot;      NA               &quot; the leash&quot;    
+## [701] &quot; the first&quot;     &quot; the net&quot;       &quot; the pail&quot;      NA              
+## [705] &quot; the ground&quot;    &quot; the show&quot;      &quot; the throne&quot;    &quot; the boy&quot;      
+## [709] NA               NA               NA               &quot; a year&quot;       
+## [713] &quot; a cat&quot;         &quot; the sandy&quot;     NA               NA              
+## [717] NA               &quot; the barn&quot;      NA               &quot; the bell&quot;</code></pre>
+</div>
+<div id="ferramenta-substituindo-padrões" class="section level2">
+<h2>Ferramenta: Substituindo padrões</h2>
+<p>Substituir vogais por *</p>
+<pre class="r"><code>phrase &lt;- sentences[3]
+str_replace(phrase, &quot;[aeiouAEIOU]&quot;, &quot;*&quot;) # troca a primeira ocorrência</code></pre>
+<pre><code>## [1] &quot;*t&#39;s easy to tell the depth of a well.&quot;</code></pre>
+<pre class="r"><code>str_replace_all(phrase, &quot;[aeiouAEIOU]&quot;, &quot;*&quot;) # troca todas as ocorrências</code></pre>
+<pre><code>## [1] &quot;*t&#39;s **sy t* t*ll th* d*pth *f * w*ll.&quot;</code></pre>
+</div>
+<div id="ferramenta-quebrando-strings" class="section level2">
+<h2>Ferramenta: quebrando strings</h2>
+<pre class="r"><code>str_split(phrase, &quot; &quot;) # retorna uma lista</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;It&#39;s&quot;  &quot;easy&quot;  &quot;to&quot;    &quot;tell&quot;  &quot;the&quot;   &quot;depth&quot; &quot;of&quot;    &quot;a&quot;     &quot;well.&quot;</code></pre>
+<p>Outras funções interessantes:</p>
+<pre class="r"><code>str_to_upper(&quot;Maçã&quot;, locale = &quot;pt&quot;) # locale: pt de português</code></pre>
+<pre><code>## [1] &quot;MAÇÃ&quot;</code></pre>
+<pre class="r"><code>stringi::stri_trans_general(&quot;é uma maçã&quot;, &quot;Latin-ASCII&quot;) # tranasformar formato de string de um encoder para outro, no caso, retirou ou acentos da frase</code></pre>
+<pre><code>## [1] &quot;e uma maca&quot;</code></pre>
+</div>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      
+  
+
+ 
+    </aside>
+    
+  </main>
+
+  
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

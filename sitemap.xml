@@ -3,63 +3,111 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/2016/12/30/a-plain-markdown-post/</loc>
-    <lastmod>2016-12-30T21:49:57-07:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/</loc>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2016-12-30T21:49:57-07:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/table-of-contents/with-toc/</loc>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2016-12-30T21:49:57-07:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/table-of-contents/without-toc/</loc>
   </url>
   
   <url>
-    <loc>/about/</loc>
-    <lastmod>2016-05-05T21:48:51-07:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/table-of-contents/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/collapsed/</loc>
   </url>
   
   <url>
-    <loc>/2015/07/23/hello-r-markdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/collapsed/3rd-level/4th-level/</loc>
   </url>
   
   <url>
-    <loc>/tags/plot/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/collapsed/3rd-level/</loc>
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/example/hidden/</loc>
   </url>
   
   <url>
-    <loc>/tags/r-markdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/</loc>
   </url>
   
   <url>
-    <loc>/tags/regression/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/buttons/</loc>
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/columns/</loc>
   </url>
   
   <url>
-    <loc>/2015/01/01/lorem-ipsum/</loc>
-    <lastmod>2015-01-01T13:09:13-06:00</lastmod>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/details/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/expand/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/hints/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/katex/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/mermaid/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/section/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/section/page1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/section/page2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/shortcodes/tabs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/Capacitacoes/R/Aula1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/Capacitacoes/R/Aula2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/capacitacoes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gustavobsales.github.io/tags/</loc>
   </url>
   
 </urlset>
